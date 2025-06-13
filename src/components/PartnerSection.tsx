@@ -31,7 +31,9 @@ const PartnerSection = () => {
     <section id="partner" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Fabguard Partner Baniye</h2>
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent mb-4">
+            Fabguard Partner Baniye
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Agar aap ek skilled service provider hain aur apna business badhana chahte hain, 
             toh Fabguard ke saath join kariye aur hazaaron customers tak pahunchiye.
@@ -40,12 +42,12 @@ const PartnerSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {benefits.map((benefit, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
+            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300 border-0 shadow-md">
               <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                  <benefit.icon className="h-8 w-8 text-orange-600" />
+                <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-100 to-teal-100 rounded-full flex items-center justify-center mb-4">
+                  <benefit.icon className="h-8 w-8 text-blue-600" />
                 </div>
-                <CardTitle className="text-lg">{benefit.title}</CardTitle>
+                <CardTitle className="text-lg text-gray-800">{benefit.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-gray-600">
@@ -56,27 +58,27 @@ const PartnerSection = () => {
           ))}
         </div>
 
-        <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-8 text-white text-center">
+        <div className="bg-gradient-to-r from-blue-600 to-teal-500 rounded-lg p-8 text-white text-center">
           <h3 className="text-3xl font-bold mb-4">Ready to Start Earning?</h3>
-          <p className="text-xl mb-6 text-orange-100">
+          <p className="text-xl mb-6 text-blue-100">
             Registration bilkul free hai. Bas apne skills aur documents ready rakhiye.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold"
+              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold"
             >
               Partner Registration
             </Button>
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white text-white hover:bg-orange-700 px-8 py-3 text-lg"
+              className="border-white text-white hover:bg-blue-700 px-8 py-3 text-lg"
             >
               Call: +91-9876543210
             </Button>
           </div>
-          <p className="mt-4 text-orange-100 text-sm">
+          <p className="mt-4 text-blue-100 text-sm">
             * Terms & Conditions Apply
           </p>
         </div>

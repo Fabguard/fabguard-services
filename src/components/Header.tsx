@@ -1,5 +1,5 @@
 
-import { ShoppingCart, Home } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
@@ -12,9 +12,15 @@ const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Home className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-800">Fabguard</span>
+          <div className="flex items-center space-x-3">
+            <img 
+              src="/lovable-uploads/245cb9a5-5d30-4d94-8670-f995c4862b3c.png" 
+              alt="Fabguard Logo" 
+              className="h-10 w-10"
+            />
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+              Fabguard
+            </span>
           </div>
           
           <nav className="hidden md:flex space-x-8">
@@ -32,11 +38,11 @@ const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
           <Button
             onClick={onCartClick}
             variant="outline"
-            className="relative"
+            className="relative border-blue-600 text-blue-600 hover:bg-blue-50"
           >
             <ShoppingCart className="h-5 w-5" />
             {cartItemsCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+              <span className="absolute -top-2 -right-2 bg-teal-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
                 {cartItemsCount}
               </span>
             )}

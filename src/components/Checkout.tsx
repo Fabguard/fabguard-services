@@ -39,7 +39,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
       setDiscount(couponDiscount);
       toast({
         title: "Coupon Applied!",
-        description: `You saved $${couponDiscount}`,
+        description: `You saved ₹${couponDiscount}`,
       });
     } else {
       toast({
@@ -89,7 +89,9 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-white z-10">
-          <CardTitle>Checkout</CardTitle>
+          <CardTitle className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+            Checkout
+          </CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="h-4 w-4" />
           </Button>
@@ -105,6 +107,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="Enter your full name"
                   required
+                  className="focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div>
@@ -116,6 +119,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   placeholder="Enter your email"
                   required
+                  className="focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
@@ -129,6 +133,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
                 onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                 placeholder="Enter your phone number"
                 required
+                className="focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             
@@ -141,18 +146,25 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
                 placeholder="Enter your complete address including city and pincode"
                 rows={3}
                 required
+                className="focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             
-            <div className="border rounded-lg p-4">
-              <h3 className="font-medium mb-3">Have a Coupon Code?</h3>
+            <div className="border rounded-lg p-4 bg-gradient-to-r from-blue-50 to-teal-50">
+              <h3 className="font-medium mb-3 text-gray-800">Have a Coupon Code?</h3>
               <div className="flex space-x-2">
                 <Input
                   value={formData.couponCode}
                   onChange={(e) => setFormData(prev => ({ ...prev, couponCode: e.target.value }))}
                   placeholder="Enter coupon code"
+                  className="focus:ring-blue-500 focus:border-blue-500"
                 />
-                <Button type="button" onClick={applyCoupon} variant="outline">
+                <Button 
+                  type="button" 
+                  onClick={applyCoupon} 
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                >
                   Apply
                 </Button>
               </div>
@@ -165,17 +177,19 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>${total}</span>
+                  <span>₹{total}</span>
                 </div>
                 {discount > 0 && (
                   <div className="flex justify-between text-green-600">
                     <span>Discount:</span>
-                    <span>-${discount}</span>
+                    <span>-₹{discount}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-xl font-bold">
                   <span>Total:</span>
-                  <span>${finalTotal}</span>
+                  <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                    ₹{finalTotal}
+                  </span>
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
                   💰 Payment: Cash on Delivery
@@ -185,7 +199,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
             
             <Button
               type="submit"
-              className="w-full bg-orange-500 hover:bg-orange-600 text-lg py-3"
+              className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white text-lg py-3"
               disabled={isLoading}
             >
               {isLoading ? "Placing Order..." : "Place Order (Cash on Delivery)"}

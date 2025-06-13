@@ -15,7 +15,9 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
     <section id="services" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Hamare Services</h2>
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent mb-4">
+            Hamare Services
+          </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Chuniye hamare professional ghar ki services mein se. 
             Sabhi services cash on delivery ke saath available hain.
@@ -31,7 +33,7 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
               {services
                 .filter(service => service.category === category)
                 .map(service => (
-                  <Card key={service.id} className="hover:shadow-lg transition-shadow duration-300">
+                  <Card key={service.id} className="hover:shadow-lg transition-shadow duration-300 border-0 shadow-md">
                     <CardHeader className="p-0">
                       <img
                         src={service.image}
@@ -40,18 +42,18 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
                       />
                     </CardHeader>
                     <CardContent className="p-6">
-                      <CardTitle className="text-xl mb-2">{service.name}</CardTitle>
+                      <CardTitle className="text-xl mb-2 text-gray-800">{service.name}</CardTitle>
                       <CardDescription className="text-gray-600 mb-4">
                         {service.description}
                       </CardDescription>
-                      <div className="text-2xl font-bold text-blue-600">
+                      <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
                         ₹{service.price}
                       </div>
                     </CardContent>
                     <CardFooter>
                       <Button 
                         onClick={() => onAddToCart(service)}
-                        className="w-full bg-orange-500 hover:bg-orange-600"
+                        className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white"
                       >
                         Cart Mein Add Kariye
                       </Button>

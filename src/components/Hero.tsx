@@ -11,12 +11,12 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+    <section className="bg-gradient-to-r from-blue-600 via-blue-700 to-teal-600 text-white py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
             Ghar Ki Har Zarurat
-            <span className="block text-orange-300">Ek Hi Jagah</span>
+            <span className="block text-teal-200">Ek Hi Jagah</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-blue-100">
             Plumbing se lekar laundry tak, hum provide karte hain bharosemand domestic services 
@@ -26,7 +26,7 @@ const Hero = () => {
             <Button 
               onClick={scrollToServices}
               size="lg" 
-              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg"
+              className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 text-lg"
             >
               Services Book Kariye
             </Button>
