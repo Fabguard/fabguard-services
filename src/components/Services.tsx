@@ -15,10 +15,10 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
     <section id="services" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">Hamare Services</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Choose from our wide range of professional home services. 
-            All services come with cash on delivery option.
+            Chuniye hamare professional ghar ki services mein se. 
+            Sabhi services cash on delivery ke saath available hain.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
                         {service.description}
                       </CardDescription>
                       <div className="text-2xl font-bold text-blue-600">
-                        ${service.price}
+                        ₹{service.price}
                       </div>
                     </CardContent>
                     <CardFooter>
@@ -53,7 +53,7 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
                         onClick={() => onAddToCart(service)}
                         className="w-full bg-orange-500 hover:bg-orange-600"
                       >
-                        Add to Cart
+                        Cart Mein Add Kariye
                       </Button>
                     </CardFooter>
                   </Card>

@@ -21,8 +21,8 @@ const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
             <a href="#services" className="text-gray-600 hover:text-blue-600 transition-colors">
               Services
             </a>
-            <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">
-              About
+            <a href="#partner" className="text-gray-600 hover:text-blue-600 transition-colors">
+              Partner Baniye
             </a>
             <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">
               Contact
