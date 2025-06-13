@@ -22,3 +22,16 @@ export interface OrderDetails {
   discount: number;
   finalTotal: number;
 }
+
+export interface Membership {
+  id: number;
+  name: string;
+  price: number;
+  validity: string;
+  discount: string;
+  services: string[];
+  features: string[];
+  color: string;
+  bgGradient: string;
+  popular?: boolean;
+}

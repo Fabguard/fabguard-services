@@ -3,9 +3,10 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import PartnerSection from "@/components/PartnerSection";
+import Membership from "@/components/Membership";
 import Cart from "@/components/Cart";
 import Checkout from "@/components/Checkout";
-import { Service, CartItem, OrderDetails } from "@/types/types";
+import { Service, CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
 
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -63,6 +64,43 @@ const Index = () => {
     }
   ];
 
+  const memberships: MembershipType[] = [
+    {
+      id: 1,
+      name: "Gold Membership",
+      price: 2000,
+      validity: "1-Year Validity",
+      discount: "10% Discount",
+      services: ["Laundry Services", "Dry Cleaning"],
+      features: ["Quick Service", "Exclusive Coupon Code"],
+      color: "gold",
+      bgGradient: "bg-gradient-to-r from-yellow-400 to-yellow-600"
+    },
+    {
+      id: 2,
+      name: "Platinum Membership",
+      price: 3000,
+      validity: "1-Year Validity",
+      discount: "10% Discount",
+      services: ["Laundry Services", "Dry Cleaning", "Electrical Services", "Plumbing Services"],
+      features: ["Quick Service", "Exclusive Coupon Code"],
+      color: "platinum",
+      bgGradient: "bg-gradient-to-r from-gray-400 to-gray-600",
+      popular: true
+    },
+    {
+      id: 3,
+      name: "Diamond Membership",
+      price: 4000,
+      validity: "1-Year Validity",
+      discount: "10% Discount",
+      services: ["Laundry Services", "Dry Cleaning", "Electrical Services", "Plumbing Services", "Carpentry Services", "Water Filtration"],
+      features: ["Quick Service", "Exclusive Coupon Code", "Priority Support"],
+      color: "diamond",
+      bgGradient: "bg-gradient-to-r from-blue-400 to-blue-600"
+    }
+  ];
+
   const addToCart = (service: Service) => {
     setCartItems(prev => {
       const existingItem = prev.find(item => item.service.id === service.id);
@@ -93,6 +131,11 @@ const Index = () => {
     return cartItems.reduce((total, item) => total + (item.service.price * item.quantity), 0);
   };
 
+  const handleSelectMembership = (membership: MembershipType) => {
+    console.log("Selected membership:", membership);
+    // In a real app, you would navigate to payment or show membership signup form
+  };
+
   const handleCheckout = () => {
     setShowCart(false);
     setShowCheckout(true);
@@ -114,6 +157,7 @@ const Index = () => {
       />
       <Hero />
       <Services services={services} onAddToCart={addToCart} />
+      <Membership memberships={memberships} onSelectMembership={handleSelectMembership} />
       <PartnerSection />
       
       {showCart && (
