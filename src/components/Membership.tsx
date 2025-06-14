@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeCheck, Star, Crown, Diamond } from "lucide-react";
-import { Membership } from "@/types/types";
+import type { Membership } from "@/types/types"; // <-- type-only import to fix TS2865
 
 interface MembershipProps {
   memberships: Membership[];
@@ -31,15 +31,13 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
             Membership Plans
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Become a member aur enjoy exclusive discounts aur benefits. 
-            Choose the perfect plan for your needs!
+            Become a member and enjoy exclusive discounts & benefits. Choose the perfect plan for your needs!
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {memberships.map((membership) => (
-            <Card 
-              key={membership.id} 
+            <Card
+              key={membership.id}
               className={`relative hover:shadow-xl transition-all duration-300 border-2 ${
                 membership.popular ? 'border-teal-500 scale-105' : 'border-gray-200'
               }`}
@@ -51,7 +49,7 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
                   </span>
                 </div>
               )}
-              
+
               <CardHeader className={`text-center ${membership.bgGradient} text-white rounded-t-lg`}>
                 <div className="flex justify-center mb-4">
                   {getIcon(membership.name)}
@@ -64,14 +62,12 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
                   ₹{membership.price}
                 </div>
               </CardHeader>
-              
               <CardContent className="p-6">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <BadgeCheck className="h-5 w-5 text-green-500" />
                     <span className="font-medium text-gray-800">{membership.discount} Discount</span>
                   </div>
-                  
                   <div className="space-y-2">
                     <h4 className="font-medium text-gray-800">Applicable Services:</h4>
                     <ul className="space-y-1">
@@ -83,7 +79,6 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
                       ))}
                     </ul>
                   </div>
-                  
                   <div className="space-y-2">
                     <h4 className="font-medium text-gray-800">Extra Benefits:</h4>
                     <ul className="space-y-1">
@@ -97,9 +92,8 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
                   </div>
                 </div>
               </CardContent>
-              
               <CardFooter>
-                <Button 
+                <Button
                   onClick={() => onSelectMembership(membership)}
                   className={`w-full ${membership.bgGradient} hover:opacity-90 text-white border-0`}
                 >
@@ -115,3 +109,4 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
 };
 
 export default Membership;
+
