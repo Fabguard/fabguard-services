@@ -1,3 +1,4 @@
+
 import { Service } from "@/types/types";
 
 // Service items for different categories as per user instructions
@@ -28,7 +29,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Plumbing Services",
     description: "All types of plumbing repair, fittings, leakages etc.",
     price: 150,
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop", // macro photography of black circuit board, suitable for Plumbing for its close-up details
+    image: "/lovable-uploads/245cb9a5-5d30-4d94-8670-f995c4862b3c.png", // river between mountains under white clouds (placeholder for Plumbing)
     category: "Plumbing Services",
     items: SERVICE_ITEMS["Plumbing Services"]
   },
