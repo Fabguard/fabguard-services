@@ -1,4 +1,3 @@
-
 import { Service } from "@/types/types";
 
 // Service items for different categories as per user instructions
@@ -29,7 +28,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Plumbing Services",
     description: "All types of plumbing repair, fittings, leakages etc.",
     price: 150,
-    image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop", // macro photography of black circuit board, suitable for Plumbing for its close-up details
     category: "Plumbing Services",
     items: SERVICE_ITEMS["Plumbing Services"]
   },
@@ -38,7 +37,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Electrical Services",
     description: "Professional & safe electrical work for your home.",
     price: 150,
-    image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=300&fit=crop", // colorful software/web code on a monitor
     category: "Electrical Services",
     items: SERVICE_ITEMS["Electrical Services"]
   },
@@ -47,7 +46,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Carpentry Services",
     description: "All wooden repair, furniture making and fitting.",
     price: 150,
-    image: "https://images.unsplash.com/photo-1621905252472-e8592afb8f6f?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop", // monitor showing Java programming (as a neutral placeholder for Carpentry)
     category: "Carpentry Services",
     items: SERVICE_ITEMS["Carpentry Services"]
   },
@@ -56,7 +55,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Clothes Ironing Services",
     description: "Neat, crisp ironing for all types of clothes.",
     price: 100,
-    image: "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=300&fit=crop", // white robot near wall (unique placeholder)
     category: "Clothes Ironing Services",
     items: SERVICE_ITEMS["Clothes Ironing Services"]
   },
@@ -65,7 +64,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Dry Cleaning Services",
     description: "Professional dry cleaning for all items.",
     price: 100,
-    image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop", // gray and black laptop computer (unique placeholder)
     category: "Dry Cleaning Services",
     items: SERVICE_ITEMS["Dry Cleaning Services"]
   },
@@ -74,9 +73,8 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Washing & Ironing Services",
     description: "Complete wash + ironing service.",
     price: 100,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop", // woman in white long sleeve shirt using black laptop
     category: "Washing & Ironing Services",
     items: SERVICE_ITEMS["Washing & Ironing Services"]
   }
 ];
-
