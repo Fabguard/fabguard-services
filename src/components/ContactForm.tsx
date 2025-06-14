@@ -25,7 +25,7 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/company/yourcompany",
+    href: "https://linkedin.com/in/fabguard-services-638a81160",
     icon: Linkedin,
   },
   {
