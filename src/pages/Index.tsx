@@ -7,6 +7,7 @@ import Membership from "@/components/Membership";
 import Cart from "@/components/Cart";
 import Checkout from "@/components/Checkout";
 import TeamSection from "@/components/TeamSection";
+import ContactForm from "@/components/ContactForm";
 import { Service, CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
 
 // Service items for different categories as per user instructions
@@ -187,6 +188,7 @@ const Index = () => {
       <Membership memberships={memberships} onSelectMembership={handleSelectMembership} />
       <PartnerSection />
       <TeamSection />
+      <ContactForm />
       {/* Place Contact section here later */}
       {showCart && (
         <Cart
