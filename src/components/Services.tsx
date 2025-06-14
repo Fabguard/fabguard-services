@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,27 +61,6 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
                       <CardDescription className="text-gray-600 mb-4">
                         {service.description}
                       </CardDescription>
-                      {service.items && (
-                        <div className="mb-2">
-                          <span className="font-medium text-gray-800">Select Items (optional):</span>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            {service.items.map((item, idx) => (
-                              <label
-                                key={idx}
-                                className={`border rounded px-3 py-1 cursor-pointer text-sm ${selectedItems[service.id]?.includes(item) ? "bg-blue-100 border-blue-500" : "bg-white border-gray-300"}`}
-                              >
-                                <input
-                                  type="checkbox"
-                                  className="mr-1"
-                                  checked={selectedItems[service.id]?.includes(item) || false}
-                                  onChange={() => handleSelectItem(service.id, item)}
-                                />
-                                {item}
-                              </label>
-                            ))}
-                          </div>
-                        </div>
-                      )}
                       <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
                         ₹{service.price}
                       </div>
