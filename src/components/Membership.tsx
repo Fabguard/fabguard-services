@@ -1,15 +1,20 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeCheck, Star, Crown, Diamond } from "lucide-react";
 import type { Membership } from "@/types/types"; // <-- type-only import to fix TS2865
 
+import MembershipRegistrationModal from "./MembershipRegistrationModal";
+import React from "react";
+
 interface MembershipProps {
   memberships: Membership[];
-  onSelectMembership: (membership: Membership) => void;
+  onSelectMembership?: (membership: Membership) => void; // made optional
 }
 
-const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
+const Membership = ({
+  memberships,
+  onSelectMembership,
+}: MembershipProps) => {
   const getIcon = (membershipName: string) => {
     switch (membershipName) {
       case "Gold Membership":
@@ -31,7 +36,7 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
             Membership Plans
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Become a member and enjoy exclusive discounts & benefits. Choose the perfect plan for your needs!
+            Become a member and enjoy exclusive discounts &amp; benefits. Choose the perfect plan for your needs!
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -39,7 +44,7 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
             <Card
               key={membership.id}
               className={`relative hover:shadow-xl transition-all duration-300 border-2 ${
-                membership.popular ? 'border-teal-500 scale-105' : 'border-gray-200'
+                membership.popular ? "border-teal-500 scale-105" : "border-gray-200"
               }`}
             >
               {membership.popular && (
@@ -94,7 +99,7 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
               </CardContent>
               <CardFooter>
                 <Button
-                  onClick={() => onSelectMembership(membership)}
+                  onClick={() => onSelectMembership && onSelectMembership(membership)}
                   className={`w-full ${membership.bgGradient} hover:opacity-90 text-white border-0`}
                 >
                   Select {membership.name}
@@ -109,4 +114,3 @@ const Membership = ({ memberships, onSelectMembership }: MembershipProps) => {
 };
 
 export default Membership;
-
