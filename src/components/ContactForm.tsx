@@ -113,10 +113,10 @@ const ContactForm = () => {
         <div className="flex flex-col gap-4 mt-10 text-blue-600">
           <div className="flex gap-6">
             <div className="flex items-center gap-2">
-              <Mail className="w-5 h-5" /> hello@fabguard.com
+              <Mail className="w-5 h-5" /> fabguard.in@gmail.com
             </div>
             <div className="flex items-center gap-2">
-              <Phone className="w-5 h-5" /> +91-9999999999
+              <Phone className="w-5 h-5" /> +91 7262927177
             </div>
           </div>
           <div className="mt-4">
