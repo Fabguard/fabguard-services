@@ -27,7 +27,7 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
             Hamare Services
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Choose from our professional services. Prices shown are estimated rates and also service visit charges. Service provider will collect visit charges on visit if you do not proceed with the service. Actual price after inspection.
+            Choose from our professional services. Prices shown are <b>visit charges</b> (minimum cart value per visit). Service provider will collect visit charges on visit if you do not proceed with the service. Actual price after inspection.
           </p>
         </div>
         {/* Responsive grid: vertical on mobile, horizontal on desktop */}
@@ -54,11 +54,12 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
                         <CardDescription className="text-gray-600 mb-4">
                           {service.description}
                         </CardDescription>
-                        <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                        <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent flex items-center gap-2">
                           ₹{service.price}
+                          <span className="text-base font-semibold text-gray-700 ml-1">Visit Charges</span>
                         </div>
                         <div className="text-xs text-gray-500 mt-2">
-                          (Estimated rate & service visit charge)
+                          (Visit charges per service. This is the minimum billing for a visit.)
                         </div>
                       </CardContent>
                       <CardFooter>
