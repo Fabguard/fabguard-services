@@ -18,7 +18,7 @@ export function useMemberships() {
     {
       id: 2,
       name: "Platinum Membership",
-      price: 3000,
+      price: 2299, // Updated price
       validity: "1-Year Validity",
       discount: "10% Discount",
       services: [
@@ -35,7 +35,7 @@ export function useMemberships() {
     {
       id: 3,
       name: "Diamond Membership",
-      price: 4000,
+      price: 2499, // Updated price
       validity: "1-Year Validity",
       discount: "10% Discount",
       services: [
