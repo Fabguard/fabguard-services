@@ -113,8 +113,13 @@ const Index = () => {
       price: 3000,
       validity: "1-Year Validity",
       discount: "10% Discount",
-      services: ["Clothes Ironing Services", "Dry Cleaning Services", "Electrical Services", "Plumbing Services"],
-      features: ["Exclusive Coupon Code"],
+      services: [
+        "Clothes Ironing Services",
+        "Dry Cleaning Services",
+        "Electrical Services",
+        "Plumbing Services"
+      ],
+      features: ["Quick Service", "Exclusive Coupon Code"],
       color: "platinum",
       bgGradient: "bg-gradient-to-r from-gray-400 to-gray-600",
       popular: true
@@ -125,8 +130,14 @@ const Index = () => {
       price: 4000,
       validity: "1-Year Validity",
       discount: "10% Discount",
-      services: ["Clothes Ironing Services", "Dry Cleaning Services", "Electrical Services", "Plumbing Services", "Carpentry Services"],
-      features: ["Exclusive Coupon Code"],
+      services: [
+        "Clothes Ironing Services",
+        "Dry Cleaning Services",
+        "Electrical Services",
+        "Plumbing Services",
+        "Carpentry Services"
+      ],
+      features: ["Quick Service", "Exclusive Coupon Code"],
       color: "diamond",
       bgGradient: "bg-gradient-to-r from-blue-400 to-blue-600"
     }
