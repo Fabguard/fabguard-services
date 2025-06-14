@@ -13,10 +13,12 @@ type Props = {
   onRegister: (values: RegistrationFormValues) => void;
 };
 
+// Add "code" property for the referral/coupon code
 export type RegistrationFormValues = {
   name: string;
   email: string;
   phone: string;
+  code?: string;
 };
 
 const MembershipRegistrationModal = ({
@@ -65,6 +67,13 @@ const MembershipRegistrationModal = ({
             <label className="block mb-1 font-medium" htmlFor="reg-phone">Phone</label>
             <Input id="reg-phone" {...register("phone", { required: "Phone is required" })} />
             {errors.phone && <p className="text-destructive text-xs mt-1">{errors.phone.message}</p>}
+          </div>
+          <div>
+            <label className="block mb-1 font-medium" htmlFor="reg-code">Referral/Coupon Code (optional)</label>
+            <Input id="reg-code" placeholder="Enter referral or coupon code"
+              {...register("code")}
+            />
+            {/* No error for code since it's optional */}
           </div>
           <DialogFooter>
             <Button type="button" variant="secondary" onClick={onClose}>Cancel</Button>
