@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -7,6 +6,7 @@ import PartnerSection from "@/components/PartnerSection";
 import Membership from "@/components/Membership";
 import Cart from "@/components/Cart";
 import Checkout from "@/components/Checkout";
+import TeamSection from "@/components/TeamSection";
 import { Service, CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
 
 // Service items for different categories as per user instructions
@@ -186,6 +186,8 @@ const Index = () => {
       <Services services={SERVICES_WITH_IMAGES} onAddToCart={addToCart} />
       <Membership memberships={memberships} onSelectMembership={handleSelectMembership} />
       <PartnerSection />
+      <TeamSection />
+      {/* Place Contact section here later */}
       {showCart && (
         <Cart
           items={cartItems}
