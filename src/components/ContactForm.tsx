@@ -15,7 +15,7 @@ type ContactFormFields = {
 const socialLinks = [
   {
     name: "Facebook",
-    href: "https://www.facebook.com/yourcompany",
+    href: "https://www.facebook.com/fabguard.in",
     icon: Facebook,
   },
   {
