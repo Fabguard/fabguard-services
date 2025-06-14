@@ -20,7 +20,7 @@ const socialLinks = [
   },
   {
     name: "Instagram",
-    href: "https://www.instagram.com/yourcompany",
+    href: "https://instagram.com/fabguard_5?igshid=NGExMmI2YTkyZg==",
     icon: Instagram,
   },
   {
