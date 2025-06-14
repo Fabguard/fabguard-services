@@ -37,7 +37,7 @@ const SERVICES_WITH_IMAGES = [
     id: 1,
     name: "Plumbing Services",
     description: "All types of plumbing repair, fittings, leakages etc.",
-    price: 300,
+    price: 150,
     image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=300&fit=crop",
     category: "Plumbing Services",
     items: SERVICE_ITEMS["Plumbing Services"]
@@ -46,7 +46,7 @@ const SERVICES_WITH_IMAGES = [
     id: 2,
     name: "Electrical Services",
     description: "Professional & safe electrical work for your home.",
-    price: 400,
+    price: 150,
     image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop",
     category: "Electrical Services",
     items: SERVICE_ITEMS["Electrical Services"]
@@ -55,7 +55,7 @@ const SERVICES_WITH_IMAGES = [
     id: 3,
     name: "Carpentry Services",
     description: "All wooden repair, furniture making and fitting.",
-    price: 350,
+    price: 150,
     image: "https://images.unsplash.com/photo-1621905252472-e8592afb8f6f?w=400&h=300&fit=crop",
     category: "Carpentry Services",
     items: SERVICE_ITEMS["Carpentry Services"]
@@ -64,7 +64,7 @@ const SERVICES_WITH_IMAGES = [
     id: 4,
     name: "Clothes Ironing Services",
     description: "Neat, crisp ironing for all types of clothes.",
-    price: 150,
+    price: 100,
     image: "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&h=300&fit=crop",
     category: "Clothes Ironing Services",
     items: SERVICE_ITEMS["Clothes Ironing Services"]
@@ -82,7 +82,7 @@ const SERVICES_WITH_IMAGES = [
     id: 6,
     name: "Washing & Ironing Services",
     description: "Complete wash + ironing service.",
-    price: 120,
+    price: 100,
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
     category: "Washing & Ironing Services",
     items: SERVICE_ITEMS["Washing & Ironing Services"]
