@@ -30,10 +30,10 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
             Choose from our professional services. Prices shown are estimated rates and also service visit charges. Service provider will collect visit charges on visit if you do not proceed with the service. Actual price after inspection.
           </p>
         </div>
-        {/* Categories side by side */}
-        <div className="flex flex-col lg:flex-row gap-10 overflow-x-auto">
+        {/* Responsive grid: vertical on mobile, horizontal on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {categories.map(category => (
-            <div key={category} className="flex-1 min-w-[320px] max-w-lg lg:max-w-xs mb-12">
+            <div key={category} className="min-w-[280px] max-w-lg lg:max-w-xs mb-12 w-full">
               <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
                 {category}
               </h3>
@@ -81,4 +81,3 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
 };
 
 export default Services;
-
