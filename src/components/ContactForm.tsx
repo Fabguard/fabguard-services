@@ -30,7 +30,7 @@ const socialLinks = [
   },
   {
     name: "YouTube",
-    href: "https://www.youtube.com/@yourcompany",
+    href: "https://www.youtube.com/channel/UCTp7Yv9bEGmag6URErZe5kA",
     icon: Youtube,
   },
 ];
