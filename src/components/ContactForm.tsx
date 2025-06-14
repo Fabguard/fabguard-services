@@ -36,7 +36,7 @@ const socialLinks = [
   },
 ];
 
-const whatsappNumber = "+919999999999"; // Replace with your WhatsApp number
+const whatsappNumber = "+917262927177"; // Updated WhatsApp number
 const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}`;
 
 const ContactForm = () => {
