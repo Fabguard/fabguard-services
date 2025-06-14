@@ -1,9 +1,12 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Star, Users, Wallet } from "lucide-react";
+import React, { useState } from "react";
+import PartnerRegistrationForm from "./PartnerRegistrationForm";
 
 const PartnerSection = () => {
+  const [showRegister, setShowRegister] = useState(false);
+
   const benefits = [
     {
       icon: Wallet,
@@ -64,24 +67,27 @@ const PartnerSection = () => {
             Registration bilkul free hai. Bas apne skills aur documents ready rakhiye.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold"
+              onClick={() => setShowRegister(true)}
             >
               Partner Registration
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="border-white text-white hover:bg-blue-700 px-8 py-3 text-lg"
+              asChild
             >
-              Call: +91-9876543210
+              <a href="tel:+919876543210">Call: +91-9876543210</a>
             </Button>
           </div>
           <p className="mt-4 text-blue-100 text-sm">
             * Terms & Conditions Apply
           </p>
         </div>
+        <PartnerRegistrationForm open={showRegister} onClose={() => setShowRegister(false)} />
       </div>
     </section>
   );
