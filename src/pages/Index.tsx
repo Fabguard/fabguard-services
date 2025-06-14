@@ -8,6 +8,7 @@ import Cart from "@/components/Cart";
 import Checkout from "@/components/Checkout";
 import TeamSection from "@/components/TeamSection";
 import ContactForm from "@/components/ContactForm";
+import WhatsappFab from "@/components/WhatsappFab";
 import { Service, CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
 
 // Service items for different categories as per user instructions
@@ -206,6 +207,8 @@ const Index = () => {
           onPlaceOrder={handlePlaceOrder}
         />
       )}
+      {/* Place floating WhatsApp button */}
+      <WhatsappFab />
     </div>
   );
 };
