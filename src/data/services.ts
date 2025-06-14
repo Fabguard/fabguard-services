@@ -1,0 +1,82 @@
+
+import { Service } from "@/types/types";
+
+// Service items for different categories as per user instructions
+export const SERVICE_ITEMS: Record<string, string[]> = {
+  "Clothes Ironing Services": [
+    "Shirt","T-shirt","Kurta","Trousers","Pyjama","Salwar","3 pc suit","Sherwani","Tops","Cotton saree","Silk saree","Ghagra","Plated skirt","Sweater","Jacket","Blazer","Skirt","Kid's shirt","Kids trousers","Kid's blazer","Kid's t-shirt","Kid's kurta","Kid's salwar","Kid's sherwani","Kid's jacket","Carpet", "Bedsheet", "Pillow cover", "Blanket", "Galicha", "Other laundry services"
+  ],
+  "Washing & Ironing Services": [
+    "Shirt","T-shirt","Kurta","Trousers","Pyjama","Salwar","3 pc suit","Sherwani","Tops","Cotton saree","Silk saree","Ghagra","Plated skirt","Sweater","Jacket","Blazer","Skirt","Kid's shirt","Kids trousers","Kid's blazer","Kid's t-shirt","Kid's kurta","Kid's salwar","Kid's sherwani","Kid's jacket","Carpet", "Bedsheet", "Pillow cover", "Blanket", "Galicha", "Other laundry services"
+  ],
+  "Dry Cleaning Services": [
+    "Shirt","T-shirt","Kurta","Trousers","Pyjama","Salwar","3 pc suit","Sherwani","Tops","Cotton saree","Silk saree","Ghagra","Plated skirt","Sweater","Jacket","Blazer","Skirt","Kid's shirt","Kids trousers","Kid's blazer","Kid's t-shirt","Kid's kurta","Kid's salwar","Kid's sherwani","Kid's jacket","Carpet", "Bedsheet", "Pillow cover", "Blanket", "Galicha", "Other laundry services"
+  ],
+  "Carpentry Services": [
+    "SINGLE BED","LAMINATE DOOR","DOOR LATCH","2 CHAIR & 1 SOFA (SET)","NEW SOFA","DOUBLE BED ( 5 X 7 IN PLYWOOD)","DOOR LOCK FITTING","TABLE","OFFICE COUNTER","NEW CHAIR","DOOR PEEPHOLE","HINGES FITTING/ REPAIR","DOOR CHAIN FITTING","DOOR HANDLE FITTING","DOOR STOPPER", "Other carpentry services"
+  ],
+  "Electrical Services": [
+    "JHOOMER FITTING","GEYSER COIL FITTING","GEYSER OTHER MAINTAINANCE","SWITCH FITTING (PER SWITCH)","SWITCH REPAIR","FAN BEARING","FAN WINDING","FAN WINDING & BEARING","NEW AC SUPPLY POINT (IN CONCEAL PATTI PER POINT)","NEW POWER POINT FITTING (IN CASING PATTI PER POINT)","NEW AC SUPPLY POINT (IN CASING PAATTI PER POINT)","NEW POWER POINT FITTING (IN CONCEAL PATTI PER POINT)","INVERTER BATTERY INSTALLATION","INVERTER POINT FITTING (PER POINT)","WALL FAN FITTING","1/2 HP WATER MOTOR PUMP FITTING","COOLER, WATER PUMP FITTING","COOLER FAN MOTOR FITTING","FALSE","CEILING POINT (PER POINT)","CONCEAL ELECTRICAL WIRING (PER POINT)","CASING ELECTRICAL WIRING (PER POINT)","ELECTRIC IRON REPAIR", "Other electrical services"
+  ],
+  "Plumbing Services": [
+    "TOILET JET","BATHROOM WATER PROOFING","BATHROOM WC (REMOVAL)","OLD PIPES WORK","KHODKAAM (DIGGING WORK)","EUROPEAN WATER CLOSET","WALL HUNG COMMODE FITTING","ORISSA PAN TOILET","GULLY TRAP","NAHANI TRAP","SIPHON FITTING","FLUSH TANK AND COCK","WATER TAP FITTING","VASE COUPLING FITTING","PILLAR COCK FITTING","ANGULAR COCK FITTING","BIB COCK FITTING", "Other plumbing services"
+  ]
+};
+
+export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
+  {
+    id: 1,
+    name: "Plumbing Services",
+    description: "All types of plumbing repair, fittings, leakages etc.",
+    price: 150,
+    image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=300&fit=crop",
+    category: "Plumbing Services",
+    items: SERVICE_ITEMS["Plumbing Services"]
+  },
+  {
+    id: 2,
+    name: "Electrical Services",
+    description: "Professional & safe electrical work for your home.",
+    price: 150,
+    image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop",
+    category: "Electrical Services",
+    items: SERVICE_ITEMS["Electrical Services"]
+  },
+  {
+    id: 3,
+    name: "Carpentry Services",
+    description: "All wooden repair, furniture making and fitting.",
+    price: 150,
+    image: "https://images.unsplash.com/photo-1621905252472-e8592afb8f6f?w=400&h=300&fit=crop",
+    category: "Carpentry Services",
+    items: SERVICE_ITEMS["Carpentry Services"]
+  },
+  {
+    id: 4,
+    name: "Clothes Ironing Services",
+    description: "Neat, crisp ironing for all types of clothes.",
+    price: 100,
+    image: "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&h=300&fit=crop",
+    category: "Clothes Ironing Services",
+    items: SERVICE_ITEMS["Clothes Ironing Services"]
+  },
+  {
+    id: 5,
+    name: "Dry Cleaning Services",
+    description: "Professional dry cleaning for all items.",
+    price: 100,
+    image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&h=300&fit=crop",
+    category: "Dry Cleaning Services",
+    items: SERVICE_ITEMS["Dry Cleaning Services"]
+  },
+  {
+    id: 6,
+    name: "Washing & Ironing Services",
+    description: "Complete wash + ironing service.",
+    price: 100,
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+    category: "Washing & Ironing Services",
+    items: SERVICE_ITEMS["Washing & Ironing Services"]
+  }
+];
+
