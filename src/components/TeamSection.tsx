@@ -3,27 +3,15 @@ import { Users } from "lucide-react";
 
 const TEAM = [
   {
-    name: "Priya Singh",
+    name: "S N Saqueb",
     role: "Founder & CEO",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
+    image: "https://randomuser.me/api/portraits/men/99.jpg",
     linkedin: "https://linkedin.com/",
   },
   {
-    name: "Amit Verma",
-    role: "Operations Head",
-    image: "https://randomuser.me/api/portraits/men/65.jpg",
-    linkedin: "https://linkedin.com/",
-  },
-  {
-    name: "Deepa Roy",
-    role: "Customer Care Manager",
-    image: "https://randomuser.me/api/portraits/women/45.jpg",
-    linkedin: "https://linkedin.com/",
-  },
-  {
-    name: "Rajan Patel",
+    name: "S Rizwan",
     role: "Tech Lead",
-    image: "https://randomuser.me/api/portraits/men/42.jpg",
+    image: "https://randomuser.me/api/portraits/men/98.jpg",
     linkedin: "https://linkedin.com/",
   },
 ];
@@ -75,3 +63,4 @@ const TeamSection = () => (
 );
 
 export default TeamSection;
+
