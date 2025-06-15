@@ -73,7 +73,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Washing & Ironing Services",
     description: "Complete wash + ironing service.",
     price: 100,
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop", // woman in white long sleeve shirt using black laptop
+    image: "/lovable-uploads/d0c7eeee-ce6a-4af0-92b0-16edeed575d3.png", // updated with user-uploaded image
     category: "Washing & Ironing Services",
     items: SERVICE_ITEMS["Washing & Ironing Services"]
   }
