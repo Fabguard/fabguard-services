@@ -1,4 +1,3 @@
-
 import { Service } from "@/types/types";
 
 // Service items for different categories as per user instructions
@@ -56,7 +55,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Clothes Ironing Services",
     description: "Neat, crisp ironing for all types of clothes.",
     price: 100,
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=300&fit=crop", // white robot near wall (unique placeholder)
+    image: "/lovable-uploads/ba618e96-4f23-4a13-8a27-2e53f48e545b.png", // updated with user-uploaded image
     category: "Clothes Ironing Services",
     items: SERVICE_ITEMS["Clothes Ironing Services"]
   },
