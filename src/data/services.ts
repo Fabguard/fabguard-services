@@ -29,7 +29,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Plumbing Services",
     description: "All types of plumbing repair, fittings, leakages etc.",
     price: 150,
-    image: "/lovable-uploads/245cb9a5-5d30-4d94-8670-f995c4862b3c.png", // river between mountains under white clouds (placeholder for Plumbing)
+    image: "/lovable-uploads/6c6d23b8-6bdd-456b-960f-2117eb59dcf3.png", // updated image as requested
     category: "Plumbing Services",
     items: SERVICE_ITEMS["Plumbing Services"]
   },
