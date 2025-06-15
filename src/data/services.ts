@@ -64,7 +64,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Dry Cleaning Services",
     description: "Professional dry cleaning for all items.",
     price: 100,
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop", // gray and black laptop computer (unique placeholder)
+    image: "/lovable-uploads/569b94da-01c6-4317-8af4-94de095f3d5c.png", // updated with user-uploaded image
     category: "Dry Cleaning Services",
     items: SERVICE_ITEMS["Dry Cleaning Services"]
   },
