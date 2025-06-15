@@ -9,6 +9,7 @@ import Checkout from "@/components/Checkout";
 import TeamSection from "@/components/TeamSection";
 import ContactForm from "@/components/ContactForm";
 import WhatsappFab from "@/components/WhatsappFab";
+import Testimonials from "@/components/Testimonials";
 import { CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
 import { useMemberships } from "@/hooks/useMemberships";
 import { SERVICES_WITH_IMAGES } from "@/data/services";
@@ -97,6 +98,8 @@ const Index = () => {
       />
       <PartnerSection />
       <TeamSection />
+      {/* Insert Testimonials below TeamSection and before ContactForm */}
+      <Testimonials />
       <ContactForm />
       {showCart && (
         <Cart
