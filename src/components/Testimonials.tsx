@@ -6,6 +6,11 @@ const testimonials = [
     name: "Aasem",
     feedback: "The transaction between service provider and customer is very transparent.",
   },
+  {
+    name: "Abuzar",
+    feedback:
+      "Fabguard have the most innovative, reliable & quick service at very low cost with full quality satisfaction.",
+  },
 ];
 
 const Testimonials = () => (
@@ -29,3 +34,4 @@ const Testimonials = () => (
 );
 
 export default Testimonials;
+
