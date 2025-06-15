@@ -38,7 +38,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Electrical Services",
     description: "Professional & safe electrical work for your home.",
     price: 150,
-    image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=400&h=300&fit=crop", // Electrician working
+    image: "/lovable-uploads/609fbb63-9da3-4a8b-91a8-4083a524957f.png", // updated with user-uploaded image
     category: "Electrical Services",
     items: SERVICE_ITEMS["Electrical Services"]
   },
