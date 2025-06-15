@@ -47,7 +47,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Carpentry Services",
     description: "All wooden repair, furniture making and fitting.",
     price: 150,
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop", // monitor showing Java programming (as a neutral placeholder for Carpentry)
+    image: "/lovable-uploads/1e070006-17a4-4996-b55f-47060cfa9a5d.png", // updated with user-uploaded image
     category: "Carpentry Services",
     items: SERVICE_ITEMS["Carpentry Services"]
   },
