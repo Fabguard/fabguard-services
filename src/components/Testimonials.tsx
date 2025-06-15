@@ -11,6 +11,10 @@ const testimonials = [
     feedback:
       "Fabguard have the most innovative, reliable & quick service at very low cost with full quality satisfaction.",
   },
+  {
+    name: "Deepjyoti Das",
+    feedback: "Fast, quick and reliable services.",
+  },
 ];
 
 const Testimonials = () => (
