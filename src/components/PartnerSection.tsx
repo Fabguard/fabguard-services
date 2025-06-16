@@ -80,7 +80,7 @@ const PartnerSection = () => {
               className="border-white text-white hover:bg-blue-700 px-8 py-3 text-lg"
               asChild
             >
-              <a href="tel:+919876543210">Call: +91-9876543210</a>
+              <a href="tel:+917262927177">Call: +91-7262927177</a>
             </Button>
           </div>
           <p className="mt-4 text-blue-100 text-sm">
