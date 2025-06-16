@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { OrderDetails } from "@/types/types";
+import { Link } from "react-router-dom";
 
 interface CheckoutProps {
   total: number;
@@ -25,6 +26,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
   });
   const [discount, setDiscount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const { toast } = useToast();
 
   const applyCoupon = () => {
@@ -59,6 +61,15 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!agreeToTerms) {
+      toast({
+        title: "Terms and Conditions",
+        description: "Please agree to the Terms and Conditions to proceed",
         variant: "destructive"
       });
       return;
@@ -173,6 +184,33 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
               </p>
             </div>
             
+            <div className="border rounded-lg p-4 bg-gradient-to-r from-blue-50 to-teal-50">
+              <div className="flex items-start space-x-3">
+                <Checkbox
+                  id="terms"
+                  checked={agreeToTerms}
+                  onCheckedChange={setAgreeToTerms}
+                  className="mt-1"
+                />
+                <div className="flex-1">
+                  <Label htmlFor="terms" className="text-sm font-medium cursor-pointer">
+                    I agree to the{" "}
+                    <Link 
+                      to="/terms-and-conditions" 
+                      target="_blank"
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      Terms and Conditions
+                    </Link>
+                    {" "}*
+                  </Label>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Please read and accept our terms before placing your order
+                  </p>
+                </div>
+              </div>
+            </div>
+            
             <div className="border-t pt-4">
               <div className="space-y-2">
                 <div className="flex justify-between">
@@ -200,7 +238,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
             <Button
               type="submit"
               className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white text-lg py-3"
-              disabled={isLoading}
+              disabled={isLoading || !agreeToTerms}
             >
               {isLoading ? "Placing Order..." : "Place Order (Cash on Delivery)"}
             </Button>
