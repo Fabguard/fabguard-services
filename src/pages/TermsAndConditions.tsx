@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -59,35 +58,42 @@ const TermsAndConditions = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">5. Cloth Damage Policy</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">5. Customer Responsibility for Clothes Count</h2>
+              <p className="text-gray-700 leading-relaxed">
+                It is the duty of the customer to check for the number of clothes given at the time of pickup that are being given for the laundry services and check for the same at the time of delivery of clothes after the services. Fabguard will not be responsible for any of the clothes that are lost. We can co-operate with the customer only on goodwill to find the clothes which customer claims that are lost.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">6. Cloth Damage Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 In the event that any damage occurs to your clothing during our service, the service charges incurred on that particular cloth will be fully revoked. We take full responsibility for any damage caused during the cleaning process and will ensure appropriate compensation.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">6. Cancellation Policy</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">7. Cancellation Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 Services can be cancelled up to 4 hours before the scheduled appointment without any charges. Late cancellations may incur a service fee of ₹200.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">7. Quality Guarantee</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">8. Quality Guarantee</h2>
               <p className="text-gray-700 leading-relaxed">
                 We guarantee the quality of our services. If you are not satisfied with the service provided, please contact us within 24 hours, and we will re-service the area at no additional cost.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">8. Privacy Policy</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">9. Privacy Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 We respect your privacy and protect your personal information. Customer data is used solely for service delivery and communication purposes and is not shared with third parties without consent.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">9. Contact Information</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">10. Contact Information</h2>
               <p className="text-gray-700 leading-relaxed">
                 For any questions or concerns regarding these terms, please contact us through our customer service channels. We are committed to resolving any issues promptly and professionally.
               </p>
