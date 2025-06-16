@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -189,7 +190,7 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
                 <Checkbox
                   id="terms"
                   checked={agreeToTerms}
-                  onCheckedChange={setAgreeToTerms}
+                  onCheckedChange={(checked) => setAgreeToTerms(checked === true)}
                   className="mt-1"
                 />
                 <div className="flex-1">

@@ -59,9 +59,9 @@ const TermsAndConditions = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">5. Liability and Insurance</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">5. Cloth Damage Policy</h2>
               <p className="text-gray-700 leading-relaxed">
-                Fabguard is fully insured and bonded. We are liable for damages directly caused by negligence during service delivery. Claims must be reported within 24 hours of service completion with supporting documentation.
+                In the event that any damage occurs to your clothing during our service, the service charges incurred on that particular cloth will be fully revoked. We take full responsibility for any damage caused during the cleaning process and will ensure appropriate compensation.
               </p>
             </div>
 
