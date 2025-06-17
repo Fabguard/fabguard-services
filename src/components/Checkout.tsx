@@ -19,7 +19,8 @@ const Checkout = ({ total, onClose, onPlaceOrder }: CheckoutProps) => {
     email: "",
     phone: "",
     address: "",
-    couponCode: ""
+    couponCode: "",
+    note: ""
   });
   const [discount, setDiscount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);

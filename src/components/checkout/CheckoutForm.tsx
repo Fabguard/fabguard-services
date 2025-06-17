@@ -1,4 +1,3 @@
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +12,7 @@ interface FormData {
   phone: string;
   address: string;
   couponCode: string;
+  note: string;
 }
 
 interface CheckoutFormProps {
@@ -92,6 +92,21 @@ const CheckoutForm = ({
           required
           className="focus:ring-blue-500 focus:border-blue-500"
         />
+      </div>
+      
+      <div>
+        <Label htmlFor="note">Note</Label>
+        <Textarea
+          id="note"
+          value={formData.note}
+          onChange={(e) => onFormDataChange({ ...formData, note: e.target.value })}
+          placeholder="Please describe any specific problems you're facing or special instructions for our team"
+          rows={3}
+          className="focus:ring-blue-500 focus:border-blue-500"
+        />
+        <p className="text-sm text-gray-500 mt-1">
+          Help us serve you better by sharing details about the issues you're experiencing
+        </p>
       </div>
       
       <CouponSection
