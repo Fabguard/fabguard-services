@@ -5,15 +5,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Service } from "@/types/types";
 
 interface ServicesProps {
-  services: (Service & { items?: string[] })[];
+  services: Service[];
   onAddToCart: (service: Service) => void;
 }
 
 const Services = ({ services, onAddToCart }: ServicesProps) => {
   // get unique categories
   const categories = [...new Set(services.map(service => service.category))];
-  // for service subitem selection
-  const [selectedItems, setSelectedItems] = useState<{ [key: number]: string[] }>({});
 
   const handleAddToCart = (service: Service) => {
     onAddToCart(service);

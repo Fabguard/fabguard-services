@@ -11,8 +11,8 @@ import ContactForm from "@/components/ContactForm";
 import WhatsappFab from "@/components/WhatsappFab";
 import Testimonials from "@/components/Testimonials";
 import { CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
-import { useMemberships } from "@/hooks/useMemberships";
-import { SERVICES_WITH_IMAGES } from "@/data/services";
+import { useServices } from "@/hooks/useServices";
+import { useMembershipsData } from "@/hooks/useMembershipsData";
 import MembershipRegistrationModal from "@/components/MembershipRegistrationModal";
 
 const Index = () => {
@@ -20,8 +20,11 @@ const Index = () => {
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
+  // Fetch data from database
+  const { data: services = [], isLoading: servicesLoading } = useServices();
+  const { data: memberships = [], isLoading: membershipsLoading } = useMembershipsData();
+
   // Membership registration modal state
-  const { memberships } = useMemberships();
   const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
   const [selectedMembership, setSelectedMembership] = useState<MembershipType | null>(null);
 
@@ -66,16 +69,25 @@ const Index = () => {
     setShowCheckout(false);
   };
 
-  // Registration handler
   const handleSelectMembership = (membership: MembershipType) => {
     setSelectedMembership(membership);
     setRegistrationModalOpen(true);
   };
 
   const handleRegisterMembership = (formValues: any) => {
-    // Handle registration: currently just shows a success toast/alert and resets
     alert(`Thank you for registering for the ${selectedMembership?.name}!\nWe will contact you soon.`);
   };
+
+  if (servicesLoading || membershipsLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading services...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -84,12 +96,11 @@ const Index = () => {
         onCartClick={() => setShowCart(true)}
       />
       <Hero />
-      <Services services={SERVICES_WITH_IMAGES} onAddToCart={addToCart} />
+      <Services services={services} onAddToCart={addToCart} />
       <Membership
         memberships={memberships}
         onSelectMembership={handleSelectMembership}
       />
-      {/* Registration Modal */}
       <MembershipRegistrationModal
         open={registrationModalOpen}
         onClose={() => setRegistrationModalOpen(false)}
@@ -98,7 +109,6 @@ const Index = () => {
       />
       <PartnerSection />
       <TeamSection />
-      {/* Insert Testimonials below TeamSection and before ContactForm */}
       <Testimonials />
       <ContactForm />
       {showCart && (
@@ -117,7 +127,6 @@ const Index = () => {
           onPlaceOrder={handlePlaceOrder}
         />
       )}
-      {/* Place floating WhatsApp button */}
       <WhatsappFab />
     </div>
   );
