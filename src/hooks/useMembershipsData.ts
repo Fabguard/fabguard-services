@@ -24,11 +24,11 @@ export function useMembershipsData() {
         price: membership.price,
         validity: `${membership.validity_months}-Year Validity`,
         discount: `${membership.discount_percentage}% Discount`,
-        services: membership.services_included || [],
-        features: membership.features || [],
-        color: membership.color,
-        bgGradient: membership.bg_gradient,
-        popular: membership.is_popular
+        services: Array.isArray(membership.services_included) ? membership.services_included as string[] : [],
+        features: Array.isArray(membership.features) ? membership.features as string[] : [],
+        color: membership.color || '',
+        bgGradient: membership.bg_gradient || '',
+        popular: membership.is_popular || false
       }))
     }
   })
