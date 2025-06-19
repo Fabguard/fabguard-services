@@ -13,6 +13,7 @@ import Testimonials from "@/components/Testimonials";
 import { CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
 import { useServices } from "@/hooks/useServices";
 import { useMembershipsData } from "@/hooks/useMembershipsData";
+import { useOrderNotification } from "@/hooks/useOrderNotification";
 import MembershipRegistrationModal from "@/components/MembershipRegistrationModal";
 
 const Index = () => {
@@ -63,8 +64,37 @@ const Index = () => {
     setShowCheckout(true);
   };
 
-  const handlePlaceOrder = (orderDetails: OrderDetails) => {
-    console.log("Order placed:", { orderDetails, cartItems, total: getTotalAmount() });
+  const handlePlaceOrder = async (orderDetails: OrderDetails) => {
+    const orderId = `FG-${Date.now()}`;
+    
+    try {
+      // Prepare order items for notification
+      const orderItems = cartItems.map(item => ({
+        serviceName: item.service.name,
+        quantity: item.quantity,
+        price: item.service.price
+      }));
+
+      // Send WhatsApp notification to admin with complete order details
+      await sendOrderNotification({
+        customerName: orderDetails.name,
+        customerPhone: orderDetails.phone,
+        customerEmail: orderDetails.email,
+        customerAddress: orderDetails.address,
+        orderItems: orderItems,
+        totalAmount: getTotalAmount(),
+        finalAmount: orderDetails.finalTotal,
+        discount: orderDetails.discount,
+        couponCode: orderDetails.couponCode || undefined,
+        customerNote: orderDetails.note || undefined,
+        orderId: orderId
+      });
+
+      console.log("Order placed and admin notified:", { orderDetails, cartItems, total: getTotalAmount() });
+    } catch (error) {
+      console.error("Error notifying admin:", error);
+    }
+
     setCartItems([]);
     setShowCheckout(false);
   };
@@ -77,6 +107,8 @@ const Index = () => {
   const handleRegisterMembership = (formValues: any) => {
     alert(`Thank you for registering for the ${selectedMembership?.name}!\nWe will contact you soon.`);
   };
+
+  const { sendOrderNotification } = useOrderNotification();
 
   if (servicesLoading || membershipsLoading) {
     return (
