@@ -9,7 +9,353 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      coupons: {
+        Row: {
+          code: string
+          created_at: string | null
+          discount_amount: number
+          discount_type: string | null
+          id: number
+          is_active: boolean | null
+          min_order_amount: number | null
+          updated_at: string | null
+          usage_limit: number | null
+          used_count: number | null
+          valid_from: string | null
+          valid_until: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          discount_amount: number
+          discount_type?: string | null
+          id?: number
+          is_active?: boolean | null
+          min_order_amount?: number | null
+          updated_at?: string | null
+          usage_limit?: number | null
+          used_count?: number | null
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          discount_amount?: number
+          discount_type?: string | null
+          id?: number
+          is_active?: boolean | null
+          min_order_amount?: number | null
+          updated_at?: string | null
+          usage_limit?: number | null
+          used_count?: number | null
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
+      customer_memberships: {
+        Row: {
+          created_at: string | null
+          customer_id: string | null
+          end_date: string
+          id: string
+          is_active: boolean | null
+          membership_id: number | null
+          referral_code: string | null
+          start_date: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          customer_id?: string | null
+          end_date: string
+          id?: string
+          is_active?: boolean | null
+          membership_id?: number | null
+          referral_code?: string | null
+          start_date: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          customer_id?: string | null
+          end_date?: string
+          id?: string
+          is_active?: boolean | null
+          membership_id?: number | null
+          referral_code?: string | null
+          start_date?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "customer_memberships_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "customer_memberships_membership_id_fkey"
+            columns: ["membership_id"]
+            isOneToOne: false
+            referencedRelation: "memberships"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      customers: {
+        Row: {
+          address: string | null
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          phone: string
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          phone: string
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      memberships: {
+        Row: {
+          bg_gradient: string | null
+          color: string | null
+          created_at: string | null
+          discount_percentage: number | null
+          features: Json | null
+          id: number
+          is_active: boolean | null
+          is_popular: boolean | null
+          name: string
+          price: number
+          services_included: Json | null
+          updated_at: string | null
+          validity_months: number | null
+        }
+        Insert: {
+          bg_gradient?: string | null
+          color?: string | null
+          created_at?: string | null
+          discount_percentage?: number | null
+          features?: Json | null
+          id?: number
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          name: string
+          price: number
+          services_included?: Json | null
+          updated_at?: string | null
+          validity_months?: number | null
+        }
+        Update: {
+          bg_gradient?: string | null
+          color?: string | null
+          created_at?: string | null
+          discount_percentage?: number | null
+          features?: Json | null
+          id?: number
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          name?: string
+          price?: number
+          services_included?: Json | null
+          updated_at?: string | null
+          validity_months?: number | null
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          created_at: string | null
+          id: string
+          order_id: string | null
+          quantity: number
+          service_id: number | null
+          total_price: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          quantity?: number
+          service_id?: number | null
+          total_price: number
+          unit_price: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          quantity?: number
+          service_id?: number | null
+          total_price?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          coupon_code: string | null
+          created_at: string | null
+          customer_id: string | null
+          customer_note: string | null
+          discount_amount: number | null
+          final_amount: number
+          id: string
+          payment_method: string | null
+          status: string | null
+          total_amount: number
+          updated_at: string | null
+        }
+        Insert: {
+          coupon_code?: string | null
+          created_at?: string | null
+          customer_id?: string | null
+          customer_note?: string | null
+          discount_amount?: number | null
+          final_amount: number
+          id?: string
+          payment_method?: string | null
+          status?: string | null
+          total_amount: number
+          updated_at?: string | null
+        }
+        Update: {
+          coupon_code?: string | null
+          created_at?: string | null
+          customer_id?: string | null
+          customer_note?: string | null
+          discount_amount?: number | null
+          final_amount?: number
+          id?: string
+          payment_method?: string | null
+          status?: string | null
+          total_amount?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_registrations: {
+        Row: {
+          city: string
+          created_at: string | null
+          email: string | null
+          experience: string | null
+          id: string
+          message: string | null
+          name: string
+          phone: string
+          skills: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          city: string
+          created_at?: string | null
+          email?: string | null
+          experience?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          phone: string
+          skills: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          city?: string
+          created_at?: string | null
+          email?: string | null
+          experience?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string
+          skills?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string | null
+          id: number
+          image_url: string | null
+          is_active: boolean | null
+          name: string
+          price: number
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          is_active?: boolean | null
+          name: string
+          price: number
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          is_active?: boolean | null
+          name?: string
+          price?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
