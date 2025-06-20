@@ -86,7 +86,7 @@ const Index = () => {
         finalAmount: orderDetails.finalTotal,
         discount: orderDetails.discount,
         couponCode: orderDetails.couponCode || undefined,
-        customerNote: orderDetails.note || undefined,
+        customerNote: orderDetails.customerNote || undefined,
         orderId: orderId
       });
 

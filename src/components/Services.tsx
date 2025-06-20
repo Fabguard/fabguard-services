@@ -27,23 +27,6 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
             Choose from our professional services. Prices shown are <b>visit charges</b> (minimum cart value per visit). Service provider will collect visit charges on visit if you do not proceed with the service. Actual price after inspection.
           </p>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 max-w-3xl mx-auto">
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center mt-0.5">
-                <span className="text-amber-600 text-sm font-semibold">!</span>
-              </div>
-              <div className="text-left">
-                <h3 className="text-lg font-semibold text-amber-800 mb-2">Important Notice - Visit Charges Policy</h3>
-                <p className="text-amber-700 text-sm leading-relaxed">
-                  Please note that the visit charges displayed for each service will be collected by our service provider upon their visit to your location. 
-                  In the event that you decide not to proceed with the service after our team's arrival or change your mind about the work, 
-                  the visit charges will still be applicable and payable. We kindly request your understanding as this helps cover the time and 
-                  transportation costs incurred by our professional team. We encourage you to finalize your service requirements before booking 
-                  to ensure a smooth experience for both parties.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
         {/* Responsive grid: vertical on mobile, horizontal on desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
