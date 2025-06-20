@@ -1,4 +1,3 @@
-
 export interface Service {
   id: number;
   name: string;
@@ -11,6 +10,15 @@ export interface Service {
 export interface CartItem {
   service: Service;
   quantity: number;
+}
+
+export interface SelectedServiceItem {
+  name: string;
+  selected: boolean;
+}
+
+export interface CartItemWithItems extends CartItem {
+  selectedItems?: SelectedServiceItem[];
 }
 
 export interface OrderDetails {

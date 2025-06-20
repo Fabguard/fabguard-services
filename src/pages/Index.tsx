@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -10,14 +11,14 @@ import TeamSection from "@/components/TeamSection";
 import ContactForm from "@/components/ContactForm";
 import WhatsappFab from "@/components/WhatsappFab";
 import Testimonials from "@/components/Testimonials";
-import { CartItem, OrderDetails, Membership as MembershipType } from "@/types/types";
+import { CartItemWithItems, OrderDetails, Membership as MembershipType, SelectedServiceItem } from "@/types/types";
 import { useServices } from "@/hooks/useServices";
 import { useMembershipsData } from "@/hooks/useMembershipsData";
 import { useOrderNotification } from "@/hooks/useOrderNotification";
 import MembershipRegistrationModal from "@/components/MembershipRegistrationModal";
 
 const Index = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItemWithItems[]>([]);
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
@@ -55,6 +56,14 @@ const Index = () => {
     }
   };
 
+  const updateSelectedItems = (serviceId: number, selectedItems: SelectedServiceItem[]) => {
+    setCartItems(prev =>
+      prev.map(item =>
+        item.service.id === serviceId ? { ...item, selectedItems } : item
+      )
+    );
+  };
+
   const getTotalAmount = () => {
     return cartItems.reduce((total, item) => total + (item.service.price * item.quantity), 0);
   };
@@ -68,12 +77,16 @@ const Index = () => {
     const orderId = `FG-${Date.now()}`;
     
     try {
-      // Prepare order items for notification
-      const orderItems = cartItems.map(item => ({
-        serviceName: item.service.name,
-        quantity: item.quantity,
-        price: item.service.price
-      }));
+      // Prepare order items for notification with selected service items
+      const orderItems = cartItems.map(item => {
+        const selectedItems = item.selectedItems?.filter(si => si.selected).map(si => si.name) || [];
+        return {
+          serviceName: item.service.name,
+          quantity: item.quantity,
+          price: item.service.price,
+          selectedItems: selectedItems
+        };
+      });
 
       // Send WhatsApp notification to admin with complete order details
       await sendOrderNotification({
@@ -155,6 +168,8 @@ const Index = () => {
       {showCheckout && (
         <Checkout
           total={getTotalAmount()}
+          cartItems={cartItems}
+          onUpdateSelectedItems={updateSelectedItems}
           onClose={() => setShowCheckout(false)}
           onPlaceOrder={handlePlaceOrder}
         />

@@ -2,10 +2,10 @@
 import { X, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CartItem } from "@/types/types";
+import { CartItemWithItems } from "@/types/types";
 
 interface CartProps {
-  items: CartItem[];
+  items: CartItemWithItems[];
   onUpdateQuantity: (serviceId: number, quantity: number) => void;
   onClose: () => void;
   onCheckout: () => void;
@@ -60,7 +60,8 @@ const Cart = ({ items, onUpdateQuantity, onClose, onCheckout, total }: CartProps
               />
               <div className="flex-1">
                 <h4 className="font-medium">{item.service.name}</h4>
-                <p className="text-gray-600">₹{item.service.price} each</p>
+                <p className="text-gray-600">₹{item.service.price} visit charges</p>
+                <p className="text-xs text-gray-500">You'll select specific items in checkout</p>
               </div>
               <div className="flex items-center space-x-2">
                 <Button
@@ -90,8 +91,13 @@ const Cart = ({ items, onUpdateQuantity, onClose, onCheckout, total }: CartProps
           ))}
           
           <div className="border-t pt-4">
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <p className="text-sm text-blue-800">
+                <strong>💡 Next Step:</strong> You'll select specific service items and get actual pricing after our professional inspects your requirements.
+              </p>
+            </div>
             <div className="flex justify-between items-center text-xl font-bold">
-              <span>Total: </span>
+              <span>Visit Charges Total: </span>
               <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
                 ₹{total}
               </span>
@@ -104,7 +110,7 @@ const Cart = ({ items, onUpdateQuantity, onClose, onCheckout, total }: CartProps
                 onClick={onCheckout} 
                 className="flex-1 bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600"
               >
-                Proceed to Checkout
+                Select Service Items
               </Button>
             </div>
           </div>
