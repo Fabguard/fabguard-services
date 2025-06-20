@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,63 +38,70 @@ const TermsAndConditions = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">2. Payment Terms</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">2. Visit Charges Policy</h2>
+              <p className="text-gray-700 leading-relaxed">
+                The prices displayed for each service represent visit charges, which are the minimum charges applicable for our service provider's visit to your location. These visit charges will be collected upon our team's arrival at your premises. Please be advised that if you decide not to proceed with the service after our service provider has arrived at your location, or if you change your mind about the work, the visit charges will still be applicable and must be paid. This policy helps us cover the time, effort, and transportation costs incurred by our professional team. We kindly encourage our valued customers to carefully consider and finalize their service requirements before booking to ensure a mutually beneficial experience.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">3. Payment Terms</h2>
               <p className="text-gray-700 leading-relaxed">
                 Payment is due upon completion of services via cash on delivery. All prices are inclusive of applicable taxes. Refunds are processed according to our refund policy within 7 business days of service completion if you are not satisfied.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">3. Service Schedule</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">4. Service Schedule</h2>
               <p className="text-gray-700 leading-relaxed">
                 Service appointments are scheduled based on availability. We will contact you within 24 hours to confirm your appointment. Rescheduling requests must be made at least 4 hours before the scheduled service time.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">4. Access and Safety</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">5. Access and Safety</h2>
               <p className="text-gray-700 leading-relaxed">
                 You must provide safe and reasonable access to the service area. Please ensure pets are secured and valuable items are stored safely. Our team will follow all safety protocols during service delivery.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">5. Customer Responsibility for Clothes Count</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">6. Customer Responsibility for Clothes Count</h2>
               <p className="text-gray-700 leading-relaxed">
                 It is the duty of the customer to check for the number of clothes given at the time of pickup that are being given for the laundry services and check for the same at the time of delivery of clothes after the services. Fabguard will not be responsible for any of the clothes that are lost. We can co-operate with the customer only on goodwill to find the clothes which customer claims that are lost.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">6. Cloth Damage Policy</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">7. Cloth Damage Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 In the event that any damage occurs to your clothing during our service, the service charges incurred on that particular cloth will be fully revoked. We take full responsibility for any damage caused during the cleaning process and will ensure appropriate compensation.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">7. Cancellation Policy</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">8. Cancellation Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 Services can be cancelled up to 4 hours before the scheduled appointment without any charges. Late cancellations may incur a service fee of ₹200.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">8. Quality Guarantee</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">9. Quality Guarantee</h2>
               <p className="text-gray-700 leading-relaxed">
                 We guarantee the quality of our services. If you are not satisfied with the service provided, please contact us within 24 hours, and we will re-service the area at no additional cost.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">9. Privacy Policy</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">10. Privacy Policy</h2>
               <p className="text-gray-700 leading-relaxed">
                 We respect your privacy and protect your personal information. Customer data is used solely for service delivery and communication purposes and is not shared with third parties without consent.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">10. Contact Information</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">11. Contact Information</h2>
               <p className="text-gray-700 leading-relaxed">
                 For any questions or concerns regarding these terms, please contact us through our customer service channels. We are committed to resolving any issues promptly and professionally.
               </p>
