@@ -35,21 +35,7 @@ const Checkout = ({ total, cartItems, onUpdateSelectedItems, onClose, onPlaceOrd
 
   const finalTotal = total - discount;
 
-  const hasSelectedItems = () => {
-    return cartItems.every(item => 
-      item.selectedItems && item.selectedItems.some(si => si.selected)
-    );
-  };
-
   const handleContinueToDetails = () => {
-    if (!hasSelectedItems()) {
-      toast({
-        title: "Please select service items",
-        description: "You need to select at least one item from each service category to proceed.",
-        variant: "destructive"
-      });
-      return;
-    }
     setCurrentStep('details');
   };
 
@@ -76,66 +62,53 @@ const Checkout = ({ total, cartItems, onUpdateSelectedItems, onClose, onPlaceOrd
 
     setIsLoading(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const orderId = `FG-${Date.now()}`;
-    const orderDetails: OrderDetails = {
-      ...formData,
-      discount,
-      finalTotal
-    };
-    
     try {
-      // Send WhatsApp notification to admin
-      await sendOrderNotification({
-        customerName: formData.name,
-        customerPhone: formData.phone,
-        customerEmail: formData.email,
-        customerAddress: formData.address,
-        orderItems: [], // This will be populated from cart items in the parent component
-        totalAmount: total,
-        finalAmount: finalTotal,
-        discount: discount,
-        couponCode: formData.couponCode || undefined,
-        customerNote: formData.note || undefined,
-        orderId: orderId
-      });
-
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      const orderDetails: OrderDetails = {
+        ...formData,
+        discount,
+        finalTotal,
+        customerNote: formData.note
+      };
+      
+      // Call the parent's onPlaceOrder function which handles the notification
       onPlaceOrder(orderDetails);
       
       toast({
         title: "Order Placed Successfully!",
         description: "Our team will contact you soon to schedule the service. You'll only be charged for the actual services performed after inspection.",
       });
+      
     } catch (error) {
-      console.error("Error sending notification:", error);
+      console.error("Error placing order:", error);
       toast({
-        title: "Order Placed",
-        description: "Your order has been received, but there was an issue sending the notification. We'll still contact you soon.",
+        title: "Order Failed",
+        description: "There was an issue placing your order. Please try again.",
         variant: "destructive"
       });
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-        <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-white z-10 border-b">
-          <div className="flex items-center gap-4">
-            <CardTitle className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <Card className="w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+        <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-white z-10 border-b p-4 sm:p-6">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <CardTitle className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent text-lg sm:text-xl">
               {currentStep === 'items' ? 'Select Service Items' : 'Order Details'}
             </CardTitle>
-            <div className="flex items-center gap-2">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+            <div className="flex items-center gap-1 sm:gap-2">
+              <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
                 currentStep === 'items' ? 'bg-blue-600 text-white' : 'bg-green-600 text-white'
               }`}>
                 1
               </div>
-              <div className="w-8 h-1 bg-gray-300"></div>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+              <div className="w-4 h-1 sm:w-8 bg-gray-300"></div>
+              <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
                 currentStep === 'details' ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
               }`}>
                 2
@@ -146,27 +119,35 @@ const Checkout = ({ total, cartItems, onUpdateSelectedItems, onClose, onPlaceOrd
             <X className="h-4 w-4" />
           </Button>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           {currentStep === 'items' ? (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="text-center p-3 sm:p-4 bg-blue-50 rounded-lg border">
+                <h3 className="text-base sm:text-lg font-semibold text-blue-800 mb-2">
+                  Service Item Selection (Optional)
+                </h3>
+                <p className="text-xs sm:text-sm text-blue-600">
+                  You can optionally select specific items you need. Our service professional will finalize the list during inspection and provide accurate pricing.
+                </p>
+              </div>
               <ServiceItemsSelection
                 cartItems={cartItems}
                 onItemsUpdate={onUpdateSelectedItems}
               />
-              <div className="flex justify-between items-center pt-4 border-t">
-                <Button variant="outline" onClick={onClose}>
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 border-t">
+                <Button variant="outline" onClick={onClose} className="w-full sm:w-auto">
                   Back to Cart
                 </Button>
                 <Button 
                   onClick={handleContinueToDetails}
-                  className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600"
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600"
                 >
                   Continue to Order Details
                 </Button>
               </div>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <div className="flex justify-start">
                 <Button 
                   variant="outline" 

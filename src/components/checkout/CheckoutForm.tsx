@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,21 +42,21 @@ const CheckoutForm = ({
   const finalTotal = total - discount;
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form onSubmit={onSubmit} className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
         <div>
-          <Label htmlFor="name">Full Name *</Label>
+          <Label htmlFor="name" className="text-sm sm:text-base">Full Name *</Label>
           <Input
             id="name"
             value={formData.name}
             onChange={(e) => onFormDataChange({ ...formData, name: e.target.value })}
             placeholder="Enter your full name"
             required
-            className="focus:ring-blue-500 focus:border-blue-500"
+            className="focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
           />
         </div>
         <div>
-          <Label htmlFor="email">Email *</Label>
+          <Label htmlFor="email" className="text-sm sm:text-base">Email *</Label>
           <Input
             id="email"
             type="email"
@@ -63,13 +64,13 @@ const CheckoutForm = ({
             onChange={(e) => onFormDataChange({ ...formData, email: e.target.value })}
             placeholder="Enter your email"
             required
-            className="focus:ring-blue-500 focus:border-blue-500"
+            className="focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
           />
         </div>
       </div>
       
       <div>
-        <Label htmlFor="phone">Phone Number *</Label>
+        <Label htmlFor="phone" className="text-sm sm:text-base">Phone Number *</Label>
         <Input
           id="phone"
           type="tel"
@@ -77,12 +78,12 @@ const CheckoutForm = ({
           onChange={(e) => onFormDataChange({ ...formData, phone: e.target.value })}
           placeholder="Enter your phone number"
           required
-          className="focus:ring-blue-500 focus:border-blue-500"
+          className="focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
         />
       </div>
       
       <div>
-        <Label htmlFor="address">Complete Address *</Label>
+        <Label htmlFor="address" className="text-sm sm:text-base">Complete Address *</Label>
         <Textarea
           id="address"
           value={formData.address}
@@ -90,21 +91,21 @@ const CheckoutForm = ({
           placeholder="Enter your complete address including city and pincode"
           rows={3}
           required
-          className="focus:ring-blue-500 focus:border-blue-500"
+          className="focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base resize-none"
         />
       </div>
       
       <div>
-        <Label htmlFor="note">Note</Label>
+        <Label htmlFor="note" className="text-sm sm:text-base">Note (Optional)</Label>
         <Textarea
           id="note"
           value={formData.note}
           onChange={(e) => onFormDataChange({ ...formData, note: e.target.value })}
           placeholder="Please describe any specific problems you're facing or special instructions for our team"
           rows={3}
-          className="focus:ring-blue-500 focus:border-blue-500"
+          className="focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base resize-none"
         />
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">
           Help us serve you better by sharing details about the issues you're experiencing
         </p>
       </div>
@@ -124,7 +125,7 @@ const CheckoutForm = ({
       
       <Button
         type="submit"
-        className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white text-lg py-3"
+        className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white text-base sm:text-lg py-2 sm:py-3"
         disabled={isLoading || !agreeToTerms}
       >
         {isLoading ? "Placing Order..." : "Place Order (Cash on Delivery)"}
