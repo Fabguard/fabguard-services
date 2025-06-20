@@ -21,6 +21,7 @@ export interface OrderDetails {
   couponCode?: string;
   discount: number;
   finalTotal: number;
+  customerNote?: string;
 }
 
 export interface Membership {
