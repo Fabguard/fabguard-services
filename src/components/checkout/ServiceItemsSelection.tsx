@@ -4,9 +4,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { CartItemWithItems, SelectedServiceItem } from "@/types/types";
-import { SERVICE_ITEMS } from "@/data/services";
+import { useServiceItems } from "@/hooks/useServiceItems";
 
 interface ServiceItemsSelectionProps {
   cartItems: CartItemWithItems[];
@@ -36,11 +35,10 @@ const ServiceItemsSelection = ({ cartItems, onItemsUpdate }: ServiceItemsSelecti
     onItemsUpdate(serviceId, updatedItems);
   };
 
-  const initializeItems = (serviceId: number, category: string) => {
+  const initializeItems = (serviceId: number, availableItems: string[]) => {
     const cartItem = cartItems.find(item => item.service.id === serviceId);
     if (cartItem?.selectedItems) return;
 
-    const availableItems = SERVICE_ITEMS[category] || [];
     const initialItems: SelectedServiceItem[] = availableItems.map(item => ({
       name: item,
       selected: false
@@ -52,8 +50,9 @@ const ServiceItemsSelection = ({ cartItems, onItemsUpdate }: ServiceItemsSelecti
   return (
     <div className="space-y-3 sm:space-y-4">
       {cartItems.map(cartItem => {
+        const { data: serviceItems = [], isLoading } = useServiceItems(cartItem.service.id);
         const isExpanded = expandedServices.includes(cartItem.service.id);
-        const availableItems = SERVICE_ITEMS[cartItem.service.category] || [];
+        const availableItems = serviceItems.map(item => item.item_name);
         const selectedItems = cartItem.selectedItems || [];
         const selectedCount = selectedItems.filter(item => item.selected).length;
 
@@ -62,8 +61,8 @@ const ServiceItemsSelection = ({ cartItems, onItemsUpdate }: ServiceItemsSelecti
             <CardHeader 
               className="cursor-pointer hover:bg-gray-50 transition-colors p-3 sm:p-6"
               onClick={() => {
-                if (!cartItem.selectedItems) {
-                  initializeItems(cartItem.service.id, cartItem.service.category);
+                if (!cartItem.selectedItems && availableItems.length > 0) {
+                  initializeItems(cartItem.service.id, availableItems);
                 }
                 toggleServiceExpansion(cartItem.service.id);
               }}
@@ -95,37 +94,55 @@ const ServiceItemsSelection = ({ cartItems, onItemsUpdate }: ServiceItemsSelecti
 
             {isExpanded && (
               <CardContent className="pt-0 p-3 sm:p-6 sm:pt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 max-h-48 sm:max-h-60 overflow-y-auto">
-                  {availableItems.map(itemName => {
-                    const selectedItem = selectedItems.find(item => item.name === itemName);
-                    const isSelected = selectedItem?.selected || false;
+                {isLoading ? (
+                  <div className="text-center py-4">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
+                    <p className="text-sm text-gray-500 mt-2">Loading service items...</p>
+                  </div>
+                ) : availableItems.length > 0 ? (
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 max-h-48 sm:max-h-60 overflow-y-auto">
+                      {availableItems.map(itemName => {
+                        const selectedItem = selectedItems.find(item => item.name === itemName);
+                        const isSelected = selectedItem?.selected || false;
 
-                    return (
-                      <div key={itemName} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded text-sm">
-                        <Checkbox
-                          id={`${cartItem.service.id}-${itemName}`}
-                          checked={isSelected}
-                          onCheckedChange={(checked) => 
-                            handleItemToggle(cartItem.service.id, itemName, checked as boolean)
-                          }
-                          className="flex-shrink-0"
-                        />
-                        <label
-                          htmlFor={`${cartItem.service.id}-${itemName}`}
-                          className="text-xs sm:text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer flex-1 break-words"
-                        >
-                          {itemName}
-                        </label>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="mt-3 sm:mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
-                  <p className="text-xs sm:text-sm text-amber-800">
-                    <strong>Note:</strong> Final charges will be determined after inspection. 
-                    Visit charges (₹{cartItem.service.price}) are consultation fees.
-                  </p>
-                </div>
+                        return (
+                          <div key={itemName} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded text-sm">
+                            <Checkbox
+                              id={`${cartItem.service.id}-${itemName}`}
+                              checked={isSelected}
+                              onCheckedChange={(checked) => 
+                                handleItemToggle(cartItem.service.id, itemName, checked as boolean)
+                              }
+                              className="flex-shrink-0"
+                            />
+                            <label
+                              htmlFor={`${cartItem.service.id}-${itemName}`}
+                              className="text-xs sm:text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer flex-1 break-words"
+                            >
+                              {itemName}
+                            </label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-3 sm:mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
+                      <p className="text-xs sm:text-sm text-amber-800">
+                        <strong>Note:</strong> Final charges will be determined after inspection. 
+                        Visit charges (₹{cartItem.service.price}) are consultation fees.
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-4">
+                    <p className="text-sm text-gray-500">No specific items available for this service.</p>
+                    <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <p className="text-xs sm:text-sm text-blue-800">
+                        Our professional will discuss specific requirements during the visit.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             )}
           </Card>

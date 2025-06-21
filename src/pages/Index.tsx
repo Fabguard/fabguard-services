@@ -15,7 +15,9 @@ import { CartItemWithItems, OrderDetails, Membership as MembershipType, Selected
 import { useServices } from "@/hooks/useServices";
 import { useMembershipsData } from "@/hooks/useMembershipsData";
 import { useOrderNotification } from "@/hooks/useOrderNotification";
+import { useCreateOrder } from "@/hooks/useCreateOrder";
 import MembershipRegistrationModal from "@/components/MembershipRegistrationModal";
+import { toast } from "sonner";
 
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItemWithItems[]>([]);
@@ -30,6 +32,9 @@ const Index = () => {
   const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
   const [selectedMembership, setSelectedMembership] = useState<MembershipType | null>(null);
 
+  const { sendOrderNotification } = useOrderNotification();
+  const createOrderMutation = useCreateOrder();
+
   const addToCart = (service: any) => {
     setCartItems(prev => {
       const existingItem = prev.find(item => item.service.id === service.id);
@@ -42,6 +47,7 @@ const Index = () => {
       }
       return [...prev, { service, quantity: 1 }];
     });
+    toast.success(`${service.name} added to cart!`);
   };
 
   const updateQuantity = (serviceId: number, quantity: number) => {
@@ -77,6 +83,13 @@ const Index = () => {
     const orderId = `FG-${Date.now()}`;
     
     try {
+      // Create order in database
+      await createOrderMutation.mutateAsync({
+        orderDetails,
+        cartItems,
+        orderId
+      });
+
       // Prepare order items for notification with selected service items
       const orderItems = cartItems.map(item => {
         const selectedItems = item.selectedItems?.filter(si => si.selected).map(si => si.name) || [];
@@ -103,9 +116,12 @@ const Index = () => {
         orderId: orderId
       });
 
-      console.log("Order placed and admin notified:", { orderDetails, cartItems, total: getTotalAmount() });
+      toast.success("Order placed successfully! We'll contact you soon.");
+      console.log("Order placed and saved to database:", { orderDetails, cartItems, total: getTotalAmount() });
     } catch (error) {
-      console.error("Error notifying admin:", error);
+      console.error("Error placing order:", error);
+      toast.error("Failed to place order. Please try again.");
+      return;
     }
 
     setCartItems([]);
@@ -118,10 +134,8 @@ const Index = () => {
   };
 
   const handleRegisterMembership = (formValues: any) => {
-    alert(`Thank you for registering for the ${selectedMembership?.name}!\nWe will contact you soon.`);
+    toast.success(`Thank you for registering for the ${selectedMembership?.name}! We will contact you soon.`);
   };
-
-  const { sendOrderNotification } = useOrderNotification();
 
   if (servicesLoading || membershipsLoading) {
     return (

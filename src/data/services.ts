@@ -1,3 +1,5 @@
+// This file is now deprecated - all service data is fetched from Supabase database
+// Keeping minimal structure for backward compatibility during transition
 
 import { Service } from "@/types/types";
 
@@ -29,7 +31,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Plumbing Services",
     description: "All types of plumbing repair, fittings, leakages etc.",
     price: 150,
-    image: "/lovable-uploads/6c6d23b8-6bdd-456b-960f-2117eb59dcf3.png", // updated image as requested
+    image: "/lovable-uploads/6c6d23b8-6bdd-456b-960f-2117eb59dcf3.png",
     category: "Plumbing Services",
     items: SERVICE_ITEMS["Plumbing Services"]
   },
@@ -38,7 +40,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Electrical Services",
     description: "Professional & safe electrical work for your home.",
     price: 150,
-    image: "/lovable-uploads/609fbb63-9da3-4a8b-91a8-4083a524957f.png", // updated with user-uploaded image
+    image: "/lovable-uploads/609fbb63-9da3-4a8b-91a8-4083a524957f.png",
     category: "Electrical Services",
     items: SERVICE_ITEMS["Electrical Services"]
   },
@@ -47,7 +49,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Carpentry Services",
     description: "All wooden repair, furniture making and fitting.",
     price: 150,
-    image: "/lovable-uploads/1e070006-17a4-4996-b55f-47060cfa9a5d.png", // updated with user-uploaded image
+    image: "/lovable-uploads/1e070006-17a4-4996-b55f-47060cfa9a5d.png",
     category: "Carpentry Services",
     items: SERVICE_ITEMS["Carpentry Services"]
   },
@@ -56,7 +58,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Clothes Ironing Services",
     description: "Neat, crisp ironing for all types of clothes.",
     price: 100,
-    image: "/lovable-uploads/ba618e96-4f23-4a13-8a27-2e53f48e545b.png", // updated with user-uploaded image
+    image: "/lovable-uploads/ba618e96-4f23-4a13-8a27-2e53f48e545b.png",
     category: "Clothes Ironing Services",
     items: SERVICE_ITEMS["Clothes Ironing Services"]
   },
@@ -65,7 +67,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Dry Cleaning Services",
     description: "Professional dry cleaning for all items.",
     price: 100,
-    image: "/lovable-uploads/569b94da-01c6-4317-8af4-94de095f3d5c.png", // updated with user-uploaded image
+    image: "/lovable-uploads/569b94da-01c6-4317-8af4-94de095f3d5c.png",
     category: "Dry Cleaning Services",
     items: SERVICE_ITEMS["Dry Cleaning Services"]
   },
@@ -74,7 +76,7 @@ export const SERVICES_WITH_IMAGES: (Service & { items?: string[] })[] = [
     name: "Washing & Ironing Services",
     description: "Complete wash + ironing service.",
     price: 100,
-    image: "/lovable-uploads/d0c7eeee-ce6a-4af0-92b0-16edeed575d3.png", // updated with user-uploaded image
+    image: "/lovable-uploads/d0c7eeee-ce6a-4af0-92b0-16edeed575d3.png",
     category: "Washing & Ironing Services",
     items: SERVICE_ITEMS["Washing & Ironing Services"]
   }
