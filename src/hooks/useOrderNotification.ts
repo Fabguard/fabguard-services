@@ -7,13 +7,17 @@ interface OrderNotificationInput {
   customerPhone: string;
   customerEmail: string;
   customerAddress: string;
-  services: Array<{
-    name: string;
+  orderItems: Array<{
+    serviceName: string;
     quantity: number;
     price: number;
   }>;
   totalAmount: number;
-  orderNote?: string;
+  finalAmount: number;
+  discount: number;
+  couponCode?: string;
+  customerNote?: string;
+  orderId: string;
 }
 
 export const useOrderNotification = () => {
@@ -27,16 +31,13 @@ export const useOrderNotification = () => {
         customerPhone: input.customerPhone,
         customerEmail: input.customerEmail,
         customerAddress: input.customerAddress,
-        orderItems: input.services.map(service => ({
-          serviceName: service.name,
-          quantity: service.quantity,
-          price: service.price
-        })),
+        orderItems: input.orderItems,
         totalAmount: input.totalAmount,
-        finalAmount: input.totalAmount,
-        discount: 0,
-        customerNote: input.orderNote,
-        orderId: `ORDER-${Date.now()}`
+        finalAmount: input.finalAmount,
+        discount: input.discount,
+        couponCode: input.couponCode,
+        customerNote: input.customerNote,
+        orderId: input.orderId
       };
       
       const { data, error } = await supabase.functions.invoke('send-whatsapp-notification', {

@@ -14,9 +14,7 @@ const CouponSection = ({ couponCode, onCouponCodeChange, onApplyCoupon }: Coupon
 
   const applyCoupon = () => {
     const validCoupons = {
-      "SAVE10": 10,
-      "WELCOME20": 20,
-      "NEWUSER15": 15
+      "SAVE10": 10
     };
     
     const couponDiscount = validCoupons[couponCode as keyof typeof validCoupons];
@@ -24,12 +22,12 @@ const CouponSection = ({ couponCode, onCouponCodeChange, onApplyCoupon }: Coupon
       onApplyCoupon(couponDiscount);
       toast({
         title: "Coupon Applied!",
-        description: `You saved ₹${couponDiscount}`,
+        description: `You saved ₹${couponDiscount} with SAVE10!`,
       });
     } else {
       toast({
         title: "Invalid Coupon",
-        description: "Please enter a valid coupon code",
+        description: "Please enter SAVE10 to get ₹10 discount",
         variant: "destructive"
       });
     }
@@ -42,7 +40,7 @@ const CouponSection = ({ couponCode, onCouponCodeChange, onApplyCoupon }: Coupon
         <Input
           value={couponCode}
           onChange={(e) => onCouponCodeChange(e.target.value)}
-          placeholder="Enter coupon code"
+          placeholder="Enter SAVE10 for ₹10 discount"
           className="focus:ring-blue-500 focus:border-blue-500"
         />
         <Button 
@@ -54,9 +52,6 @@ const CouponSection = ({ couponCode, onCouponCodeChange, onApplyCoupon }: Coupon
           Apply
         </Button>
       </div>
-      <p className="text-sm text-gray-500 mt-2">
-        Try: SAVE10, WELCOME20, or NEWUSER15
-      </p>
     </div>
   );
 };
