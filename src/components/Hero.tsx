@@ -45,9 +45,27 @@ const Hero = () => {
                   Professional Services
                 </span>
               </h1>
+              
+              {/* Hindi Taglines */}
+              <div className="mt-6 space-y-3">
+                <h2 className="text-2xl lg:text-3xl font-bold text-orange-600">
+                  "Ghar ke kaam FabGuard ke naam"
+                </h2>
+                <h3 className="text-xl lg:text-2xl font-semibold text-teal-600">
+                  "Ghar Ki Har Zarurat Ek Hi Jagah"
+                </h3>
+              </div>
+
               <p className="text-xl text-gray-600 mt-6 max-w-lg">
                 Quality home services delivered to your doorstep. From cleaning to repairs, we've got you covered with professional expertise and reliability.
               </p>
+
+              {/* Hindi Content */}
+              <div className="mt-6 p-4 bg-gradient-to-r from-orange-50 to-teal-50 rounded-lg border-l-4 border-orange-500">
+                <p className="text-lg text-gray-700 font-medium">
+                  Plumbing se lekar laundry tak, hum provide karte hain bharosemand domestic services cash on delivery ke saath. Book kariye ab aur hamare experts ko ghar bulayiye.
+                </p>
+              </div>
             </div>
 
             {/* Trust Indicators */}
