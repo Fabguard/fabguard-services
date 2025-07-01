@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Plus, Minus, ShoppingCart, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useServices } from "@/hooks/useServices";
 import { useCreateOrder } from "@/hooks/useCreateOrder";
 import { useOrderNotification } from "@/hooks/useOrderNotification";
+import { useMemberships } from "@/hooks/useMemberships";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -26,6 +28,7 @@ const Index = () => {
   const [showCheckout, setShowCheckout] = useState(false);
   const { toast } = useToast();
   const { data: services = [], isLoading } = useServices();
+  const { data: memberships = [] } = useMemberships();
   const createOrderMutation = useCreateOrder();
   const { sendOrderNotification } = useOrderNotification();
 
@@ -49,8 +52,9 @@ const Index = () => {
           id: service.id,
           name: service.name,
           price: service.price,
-          image: service.image_url || '',
-          description: service.description || ''
+          image: service.image,
+          description: service.description,
+          category: service.category
         },
         quantity: 1,
         selectedItems: []
@@ -158,7 +162,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header cartItemsCount={getTotalItems()} onCartClick={() => setShowCart(true)} />
       <Hero />
       
       {/* Services Section */}
@@ -181,7 +185,7 @@ const Index = () => {
                   <CardHeader className="text-center">
                     <div className="mx-auto mb-4 relative">
                       <img
-                        src={service.image_url || '/placeholder.svg'}
+                        src={service.image || '/placeholder.svg'}
                         alt={service.name}
                         className="w-24 h-24 object-cover rounded-lg mx-auto"
                       />
@@ -235,8 +239,8 @@ const Index = () => {
         </div>
       </section>
 
-      <Services />
-      <Membership />
+      <Services services={services} onAddToCart={(service) => addToCart(service.id)} />
+      <Membership memberships={memberships} />
       <Testimonials />
       <ContactForm />
       <PartnerSection />
@@ -262,11 +266,11 @@ const Index = () => {
           items={cartItems}
           onClose={() => setShowCart(false)}
           onUpdateQuantity={updateQuantity}
-          onRemoveItem={removeFromCart}
-          onProceedToCheckout={() => {
+          onCheckout={() => {
             setShowCart(false);
             setShowCheckout(true);
           }}
+          total={getTotalPrice()}
         />
       )}
 

@@ -1,30 +1,43 @@
 
 import { supabase } from "@/integrations/supabase/client";
+import { OrderNotificationData } from "@/types/types";
 
-interface OrderItem {
-  serviceName: string;
-  quantity: number;
-  price: number;
-}
-
-interface OrderNotificationData {
+interface OrderNotificationInput {
   customerName: string;
   customerPhone: string;
   customerEmail: string;
   customerAddress: string;
-  orderItems: OrderItem[];
+  services: Array<{
+    name: string;
+    quantity: number;
+    price: number;
+  }>;
   totalAmount: number;
-  finalAmount: number;
-  discount: number;
-  couponCode?: string;
-  customerNote?: string;
-  orderId: string;
+  orderNote?: string;
 }
 
 export const useOrderNotification = () => {
-  const sendOrderNotification = async (orderData: OrderNotificationData) => {
+  const sendOrderNotification = async (input: OrderNotificationInput) => {
     try {
-      console.log("Sending order notification to admin...", orderData);
+      console.log("Sending order notification to admin...", input);
+      
+      // Transform the input to match the expected format
+      const orderData: OrderNotificationData = {
+        customerName: input.customerName,
+        customerPhone: input.customerPhone,
+        customerEmail: input.customerEmail,
+        customerAddress: input.customerAddress,
+        orderItems: input.services.map(service => ({
+          serviceName: service.name,
+          quantity: service.quantity,
+          price: service.price
+        })),
+        totalAmount: input.totalAmount,
+        finalAmount: input.totalAmount,
+        discount: 0,
+        customerNote: input.orderNote,
+        orderId: `ORDER-${Date.now()}`
+      };
       
       const { data, error } = await supabase.functions.invoke('send-whatsapp-notification', {
         body: { orderData }

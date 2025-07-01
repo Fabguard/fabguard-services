@@ -1,3 +1,4 @@
+
 export interface Service {
   id: number;
   name: string;
@@ -43,4 +44,22 @@ export interface Membership {
   color: string;
   bgGradient: string;
   popular?: boolean;
+}
+
+export interface OrderNotificationData {
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  customerAddress: string;
+  orderItems: Array<{
+    serviceName: string;
+    quantity: number;
+    price: number;
+  }>;
+  totalAmount: number;
+  finalAmount: number;
+  discount: number;
+  couponCode?: string;
+  customerNote?: string;
+  orderId: string;
 }
