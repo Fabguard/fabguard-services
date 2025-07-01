@@ -1,20 +1,25 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeCheck, Star, Crown, Diamond } from "lucide-react";
-import type { Membership } from "@/types/types"; // <-- type-only import to fix TS2865
-
+import type { Membership } from "@/types/types";
 import MembershipRegistrationModal from "./MembershipRegistrationModal";
-import React from "react";
+import React, { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface MembershipProps {
   memberships: Membership[];
-  onSelectMembership?: (membership: Membership) => void; // made optional
+  onSelectMembership?: (membership: Membership) => void;
 }
 
 const Membership = ({
   memberships,
   onSelectMembership,
 }: MembershipProps) => {
+  const [selectedMembership, setSelectedMembership] = useState<Membership | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { toast } = useToast();
+
   const getIcon = (membershipName: string) => {
     switch (membershipName) {
       case "Gold Membership":
@@ -26,6 +31,20 @@ const Membership = ({
       default:
         return <BadgeCheck className="h-8 w-8" />;
     }
+  };
+
+  const handleSelectMembership = (membership: Membership) => {
+    setSelectedMembership(membership);
+    setIsModalOpen(true);
+  };
+
+  const handleMembershipRegistration = (values: any) => {
+    toast({
+      title: "Registration Submitted!",
+      description: `Thank you for registering for ${selectedMembership?.name}. We'll contact you soon to complete the process.`,
+    });
+    setIsModalOpen(false);
+    setSelectedMembership(null);
   };
 
   return (
@@ -61,7 +80,7 @@ const Membership = ({
                 </div>
                 <CardTitle className="text-2xl font-bold">{membership.name}</CardTitle>
                 <CardDescription className="text-white/90">
-                  {membership.validity}
+                  1-Year Validity
                 </CardDescription>
                 <div className="text-4xl font-bold mt-4">
                   ₹{membership.price}
@@ -87,6 +106,10 @@ const Membership = ({
                   <div className="space-y-2">
                     <h4 className="font-medium text-gray-800">Extra Benefits:</h4>
                     <ul className="space-y-1">
+                      <li className="flex items-center space-x-2">
+                        <BadgeCheck className="h-4 w-4 text-green-500" />
+                        <span className="text-gray-600">No Visit Charges</span>
+                      </li>
                       {membership.features.map((feature, index) => (
                         <li key={index} className="flex items-center space-x-2">
                           <BadgeCheck className="h-4 w-4 text-green-500" />
@@ -99,7 +122,7 @@ const Membership = ({
               </CardContent>
               <CardFooter>
                 <Button
-                  onClick={() => onSelectMembership && onSelectMembership(membership)}
+                  onClick={() => handleSelectMembership(membership)}
                   className={`w-full ${membership.bgGradient} hover:opacity-90 text-white border-0`}
                 >
                   Select {membership.name}
@@ -109,6 +132,13 @@ const Membership = ({
           ))}
         </div>
       </div>
+
+      <MembershipRegistrationModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        membership={selectedMembership}
+        onRegister={handleMembershipRegistration}
+      />
     </section>
   );
 };
