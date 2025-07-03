@@ -12,6 +12,7 @@ import { useMembershipsData } from "@/hooks/useMembershipsData";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
+import ServiceInformation from "@/components/ServiceInformation";
 import Membership from "@/components/Membership";
 import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
@@ -170,6 +171,7 @@ const Index = () => {
       <Hero />
       
       <Services services={services} onAddToCart={(service) => addToCart(service.id)} />
+      <ServiceInformation />
       <Membership memberships={memberships} />
       <Testimonials />
       <ContactForm />
@@ -196,6 +198,7 @@ const Index = () => {
           items={cartItems}
           onClose={() => setShowCart(false)}
           onUpdateQuantity={updateQuantity}
+          onUpdateSelectedItems={updateSelectedItems}
           onCheckout={() => {
             setShowCart(false);
             setShowCheckout(true);

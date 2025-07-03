@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, Clock, Star, Info } from "lucide-react";
+import { ArrowRight, Shield, Clock, Star } from "lucide-react";
 
 const Hero = () => {
   const scrollToServices = () => {
@@ -16,21 +16,6 @@ const Hero = () => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Important Notice */}
-        <div className="bg-blue-100 border-l-4 border-blue-500 p-4 mb-8 rounded-r-lg">
-          <div className="flex items-start">
-            <Info className="h-5 w-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0" />
-            <div className="text-sm text-blue-800">
-              <p className="font-medium mb-1">Important Service Information:</p>
-              <ul className="space-y-1">
-                <li>• Minimum cart value of ₹100 required to place an order</li>
-                <li>• Once you agree to proceed after being informed of total charges, visit charges will be waived</li>
-                <li>• Only service charges will be applicable for confirmed services</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-8">

@@ -14,6 +14,8 @@ export function useServiceItems(serviceId?: number) {
   return useQuery({
     queryKey: ['service-items', serviceId],
     queryFn: async (): Promise<ServiceItem[]> => {
+      console.log('Fetching service items for serviceId:', serviceId);
+      
       let query = supabase
         .from('service_items')
         .select('*')
@@ -30,8 +32,11 @@ export function useServiceItems(serviceId?: number) {
         throw error;
       }
 
+      console.log('Fetched service items:', data);
       return data || [];
     },
-    enabled: serviceId !== undefined
+    enabled: serviceId !== undefined,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    cacheTime: 10 * 60 * 1000, // 10 minutes
   })
 }
