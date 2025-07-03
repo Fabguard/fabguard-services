@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Plus, Minus, ShoppingCart, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,28 +39,27 @@ const Index = () => {
     const existingItem = cartItems.find(item => item.service.id === serviceId);
     
     if (existingItem) {
-      setCartItems(items => 
-        items.map(item => 
-          item.service.id === serviceId 
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      const newItem: CartItemWithItems = {
-        service: {
-          id: service.id,
-          name: service.name,
-          price: service.price,
-          image: service.image,
-          description: service.description,
-          category: service.category
-        },
-        quantity: 1,
-        selectedItems: []
-      };
-      setCartItems(items => [...items, newItem]);
+      // Service already in cart, don't add duplicate
+      toast({
+        title: "Service Already Added",
+        description: `${service.name} is already in your cart.`,
+      });
+      return;
     }
+
+    const newItem: CartItemWithItems = {
+      service: {
+        id: service.id,
+        name: service.name,
+        price: service.price,
+        image: service.image,
+        description: service.description,
+        category: service.category
+      },
+      quantity: 1, // Always 1 for services
+      selectedItems: []
+    };
+    setCartItems(items => [...items, newItem]);
     
     toast({
       title: "Added to Cart",
@@ -83,10 +81,11 @@ const Index = () => {
       return;
     }
     
+    // For services, quantity should always be 1
     setCartItems(items => 
       items.map(item => 
         item.service.id === serviceId 
-          ? { ...item, quantity }
+          ? { ...item, quantity: 1 }
           : item
       )
     );
@@ -103,11 +102,11 @@ const Index = () => {
   };
 
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + (item.service.price * item.quantity), 0);
+    return cartItems.reduce((total, item) => total + item.service.price, 0); // Remove quantity multiplication
   };
 
   const getTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    return cartItems.length; // Count services, not quantities
   };
 
   const handlePlaceOrder = async (orderDetails: OrderDetails) => {
