@@ -177,19 +177,6 @@ const Index = () => {
       <PartnerSection />
       <TeamSection />
 
-      {/* Cart Button */}
-      {cartItems.length > 0 && (
-        <Button
-          onClick={() => setShowCart(true)}
-          className="fixed bottom-6 left-6 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg z-40"
-        >
-          <ShoppingCart className="h-6 w-6 mr-2" />
-          <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs ml-1">
-            {getTotalItems()}
-          </span>
-        </Button>
-      )}
-
       <WhatsappFab />
 
       {showCart && (

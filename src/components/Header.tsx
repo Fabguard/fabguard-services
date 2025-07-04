@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Menu, X, User, LogOut, LayoutDashboard, Package } from "lucide-react";
+import { Menu, X, User, LogOut, LayoutDashboard, Package, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,7 +13,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Header = () => {
+interface HeaderProps {
+  cartItemsCount?: number;
+  onCartClick?: () => void;
+}
+
+const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -69,6 +74,21 @@ const Header = () => {
               Contact
             </button>
             
+            {/* Cart Button */}
+            {cartItemsCount > 0 && onCartClick && (
+              <Button
+                onClick={onCartClick}
+                variant="outline"
+                size="sm"
+                className="flex items-center space-x-2"
+              >
+                <ShoppingCart className="h-4 w-4" />
+                <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                  {cartItemsCount}
+                </span>
+              </Button>
+            )}
+            
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -105,6 +125,20 @@ const Header = () => {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile Cart Button */}
+            {cartItemsCount > 0 && onCartClick && (
+              <Button
+                onClick={onCartClick}
+                variant="outline"
+                size="sm"
+              >
+                <ShoppingCart className="h-4 w-4" />
+                <span className="bg-red-500 text-white rounded-full px-1 py-0 text-xs ml-1">
+                  {cartItemsCount}
+                </span>
+              </Button>
+            )}
+            
             {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
