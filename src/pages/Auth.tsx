@@ -78,9 +78,19 @@ const Auth = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">Welcome</CardTitle>
-          <CardDescription className="text-center">
+        <CardHeader className="text-center">
+          <div className="flex items-center justify-center mb-4">
+            <img 
+              src="/lovable-uploads/bb163471-e547-491d-b573-7d52ae442c7c.png" 
+              alt="FabGuard Logo" 
+              className="h-12 w-12 mr-3"
+            />
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+              FabGuard
+            </h1>
+          </div>
+          <CardTitle className="text-2xl">Welcome</CardTitle>
+          <CardDescription>
             Sign in to your account or create a new one
           </CardDescription>
         </CardHeader>

@@ -42,8 +42,13 @@ const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex items-center">
+            <img 
+              src="/lovable-uploads/bb163471-e547-491d-b573-7d52ae442c7c.png" 
+              alt="FabGuard Logo" 
+              className="h-8 w-8 mr-3"
+            />
             <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-              ServiceHub
+              FabGuard
             </h1>
           </div>
 

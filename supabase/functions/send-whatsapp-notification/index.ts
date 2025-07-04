@@ -98,4 +98,3 @@ ${orderData.customerNote ? `📝 *Customer Note:*\n${orderData.customerNote}\n` 
 
 Please contact the customer to schedule the service.`;
 }
-```

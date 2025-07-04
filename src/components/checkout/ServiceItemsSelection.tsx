@@ -24,20 +24,33 @@ const ServiceItemsSelection = ({ cartItems, onItemsUpdate }: ServiceItemsSelecti
   };
 
   const handleItemToggle = (serviceId: number, itemName: string, checked: boolean) => {
+    console.log('Toggle item:', { serviceId, itemName, checked });
     const cartItem = cartItems.find(item => item.service.id === serviceId);
     if (!cartItem) return;
 
     const currentItems = cartItem.selectedItems || [];
-    const updatedItems = currentItems.map(item => 
-      item.name === itemName ? { ...item, selected: checked } : item
-    );
+    
+    // Check if item already exists in the list
+    const existingItemIndex = currentItems.findIndex(item => item.name === itemName);
+    
+    let updatedItems: SelectedServiceItem[];
+    if (existingItemIndex >= 0) {
+      // Update existing item
+      updatedItems = currentItems.map((item, index) => 
+        index === existingItemIndex ? { ...item, selected: checked } : item
+      );
+    } else {
+      // Add new item
+      updatedItems = [...currentItems, { name: itemName, selected: checked }];
+    }
 
+    console.log('Updated items:', updatedItems);
     onItemsUpdate(serviceId, updatedItems);
   };
 
   const initializeItems = (serviceId: number, availableItems: string[]) => {
     const cartItem = cartItems.find(item => item.service.id === serviceId);
-    if (cartItem?.selectedItems) return;
+    if (cartItem?.selectedItems && cartItem.selectedItems.length > 0) return;
 
     const initialItems: SelectedServiceItem[] = availableItems.map(item => ({
       name: item,
@@ -136,14 +149,20 @@ const ServiceItemsSelection = ({ cartItems, onItemsUpdate }: ServiceItemsSelecti
                             <Checkbox
                               id={`${cartItem.service.id}-${itemName}`}
                               checked={isSelected}
-                              onCheckedChange={(checked) => 
-                                handleItemToggle(cartItem.service.id, itemName, checked as boolean)
-                              }
+                              onCheckedChange={(checked) => {
+                                console.log('Checkbox change:', { itemName, checked });
+                                handleItemToggle(cartItem.service.id, itemName, checked as boolean);
+                              }}
                               className="mt-0.5 flex-shrink-0"
                             />
                             <label
                               htmlFor={`${cartItem.service.id}-${itemName}`}
                               className="text-xs sm:text-sm font-medium leading-tight cursor-pointer flex-1 break-words"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                console.log('Label click:', { itemName, currentState: isSelected });
+                                handleItemToggle(cartItem.service.id, itemName, !isSelected);
+                              }}
                             >
                               {itemName}
                             </label>

@@ -75,6 +75,7 @@ export const useCartManagement = () => {
   };
 
   const updateSelectedItems = (serviceId: number, selectedItems: SelectedServiceItem[]) => {
+    console.log('Updating selected items for service:', serviceId, 'items:', selectedItems);
     setCartItems(items => 
       items.map(item => 
         item.service.id === serviceId 
