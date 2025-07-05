@@ -16,37 +16,50 @@ export const useCartManagement = () => {
   const { sendOrderNotification } = useOrderNotification();
 
   const addToCart = (serviceId: number) => {
-    const service = services.find(s => s.id === serviceId);
-    if (!service) return;
+    try {
+      const service = services.find(s => s.id === serviceId);
+      if (!service) {
+        console.error('Service not found:', serviceId);
+        return;
+      }
 
-    const existingItem = cartItems.find(item => item.service.id === serviceId);
-    
-    if (existingItem) {
+      const existingItem = cartItems.find(item => item.service.id === serviceId);
+      
+      if (existingItem) {
+        toast({
+          title: "Service Already Added",
+          description: `${service.name} is already in your cart.`,
+        });
+        return;
+      }
+
+      const newItem: CartItemWithItems = {
+        service: {
+          id: service.id,
+          name: service.name,
+          price: service.price,
+          image: service.image,
+          description: service.description,
+          category: service.category
+        },
+        quantity: 1,
+        selectedItems: []
+      };
+      
+      setCartItems(prevItems => [...prevItems, newItem]);
+      
       toast({
-        title: "Service Already Added",
-        description: `${service.name} is already in your cart.`,
+        title: "Added to Cart",
+        description: `${service.name} has been added to your cart.`,
       });
-      return;
+    } catch (error) {
+      console.error('Error adding service to cart:', error);
+      toast({
+        title: "Error",
+        description: "Failed to add service to cart. Please try again.",
+        variant: "destructive"
+      });
     }
-
-    const newItem: CartItemWithItems = {
-      service: {
-        id: service.id,
-        name: service.name,
-        price: service.price,
-        image: service.image,
-        description: service.description,
-        category: service.category
-      },
-      quantity: 1,
-      selectedItems: []
-    };
-    setCartItems(items => [...items, newItem]);
-    
-    toast({
-      title: "Added to Cart",
-      description: `${service.name} has been added to your cart.`,
-    });
   };
 
   const removeFromCart = (serviceId: number) => {
@@ -54,9 +67,9 @@ export const useCartManagement = () => {
     
     try {
       setCartItems(prevItems => {
-        const filteredItems = prevItems.filter(item => item.service.id !== serviceId);
-        console.log('Previous items:', prevItems.length, 'New items:', filteredItems.length);
-        return filteredItems;
+        const newItems = prevItems.filter(item => item.service.id !== serviceId);
+        console.log('Cart updated. Previous count:', prevItems.length, 'New count:', newItems.length);
+        return newItems;
       });
       
       toast({
@@ -74,7 +87,7 @@ export const useCartManagement = () => {
   };
 
   const updateQuantity = (serviceId: number, quantity: number) => {
-    console.log('Updating quantity:', serviceId, quantity);
+    console.log('Updating quantity for service:', serviceId, 'to quantity:', quantity);
     
     if (quantity <= 0) {
       removeFromCart(serviceId);
@@ -85,7 +98,7 @@ export const useCartManagement = () => {
       setCartItems(prevItems => 
         prevItems.map(item => 
           item.service.id === serviceId 
-            ? { ...item, quantity: 1 }
+            ? { ...item, quantity: 1 } // Keep quantity at 1 for services
             : item
         )
       );

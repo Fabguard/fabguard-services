@@ -31,13 +31,14 @@ const MainContent = ({
       <Header cartItemsCount={cartItemsCount} onCartClick={onCartClick} />
       <Hero />
       
+      {/* Move About section before Services */}
+      <TeamSection />
       <Services services={services} onAddToCart={onAddToCart} />
       <ServiceInformation />
       <Membership memberships={memberships} />
       <Testimonials />
       <ContactForm />
       <PartnerSection />
-      <TeamSection />
 
       <WhatsappFab />
     </div>

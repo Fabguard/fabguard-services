@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { Menu, X, User, LogOut, LayoutDashboard, Package, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/components/AuthProvider";
-import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
@@ -20,12 +19,16 @@ interface HeaderProps {
 
 const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
+    try {
+      await signOut();
+      navigate("/");
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -34,6 +37,14 @@ const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
       element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMenuOpen(false);
+  };
+
+  const handleNavigateToAuth = (mode: 'signin' | 'signup') => {
+    try {
+      navigate(`/${mode}`);
+    } catch (error) {
+      console.error(`Error navigating to ${mode}:`, error);
+    }
   };
 
   return (
@@ -94,6 +105,7 @@ const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
               </Button>
             )}
             
+            {/* Account Section */}
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -119,22 +131,22 @@ const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center space-x-2">
-                <Button
-                  onClick={() => navigate("/signin")}
-                  variant="outline"
-                  size="sm"
-                >
-                  Sign In
-                </Button>
-                <Button
-                  onClick={() => navigate("/signup")}
-                  className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600"
-                  size="sm"
-                >
-                  Sign Up
-                </Button>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                    <User className="h-4 w-4" />
+                    <span className="hidden lg:block">Account</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem onClick={() => handleNavigateToAuth('signin')}>
+                    Sign In
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleNavigateToAuth('signup')}>
+                    Sign Up
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </nav>
 
@@ -218,16 +230,17 @@ const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
               </button>
               
               {!user && (
-                <div className="flex flex-col space-y-2 pt-4">
+                <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+                  <h3 className="text-sm font-semibold text-gray-600 mb-2">Account</h3>
                   <Button
-                    onClick={() => navigate("/signin")}
+                    onClick={() => handleNavigateToAuth('signin')}
                     variant="outline"
                     className="w-full"
                   >
                     Sign In
                   </Button>
                   <Button
-                    onClick={() => navigate("/signup")}
+                    onClick={() => handleNavigateToAuth('signup')}
                     className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 w-full"
                   >
                     Sign Up

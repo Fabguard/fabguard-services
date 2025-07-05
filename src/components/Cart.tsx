@@ -18,8 +18,9 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
   console.log('Cart rendered with items:', items);
 
   const handleRemoveService = (serviceId: number) => {
-    console.log('Removing service from cart UI:', serviceId);
+    console.log('Cart: Removing service with ID:', serviceId);
     try {
+      // Call the parent function to remove from cart
       onUpdateQuantity(serviceId, 0);
     } catch (error) {
       console.error('Error in handleRemoveService:', error);
@@ -77,6 +78,10 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
                         src={item.service.image}
                         alt={item.service.name}
                         className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded flex-shrink-0"
+                        onError={(e) => {
+                          console.log('Image load error for service:', item.service.name);
+                          (e.target as HTMLImageElement).src = '/placeholder.svg';
+                        }}
                       />
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-gray-800 text-sm sm:text-base truncate">{item.service.name}</h4>
