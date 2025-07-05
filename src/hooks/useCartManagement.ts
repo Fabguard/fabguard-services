@@ -52,17 +52,25 @@ export const useCartManagement = () => {
   const removeFromCart = (serviceId: number) => {
     console.log('Removing service from cart:', serviceId);
     
-    // Use a callback function to ensure state is updated correctly
-    setCartItems(prevItems => {
-      const filteredItems = prevItems.filter(item => item.service.id !== serviceId);
-      console.log('Previous items:', prevItems.length, 'New items:', filteredItems.length);
-      return filteredItems;
-    });
-    
-    toast({
-      title: "Removed from Cart",
-      description: "Service has been removed from your cart.",
-    });
+    try {
+      setCartItems(prevItems => {
+        const filteredItems = prevItems.filter(item => item.service.id !== serviceId);
+        console.log('Previous items:', prevItems.length, 'New items:', filteredItems.length);
+        return filteredItems;
+      });
+      
+      toast({
+        title: "Removed from Cart",
+        description: "Service has been removed from your cart.",
+      });
+    } catch (error) {
+      console.error('Error removing service from cart:', error);
+      toast({
+        title: "Error",
+        description: "Failed to remove service from cart. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const updateQuantity = (serviceId: number, quantity: number) => {
@@ -73,33 +81,61 @@ export const useCartManagement = () => {
       return;
     }
     
-    setCartItems(prevItems => 
-      prevItems.map(item => 
-        item.service.id === serviceId 
-          ? { ...item, quantity: 1 }
-          : item
-      )
-    );
+    try {
+      setCartItems(prevItems => 
+        prevItems.map(item => 
+          item.service.id === serviceId 
+            ? { ...item, quantity: 1 }
+            : item
+        )
+      );
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update quantity. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const updateSelectedItems = (serviceId: number, selectedItems: SelectedServiceItem[]) => {
     console.log('Updating selected items for service:', serviceId, 'items:', selectedItems);
     
-    setCartItems(prevItems => 
-      prevItems.map(item => 
-        item.service.id === serviceId 
-          ? { ...item, selectedItems }
-          : item
-      )
-    );
+    try {
+      setCartItems(prevItems => 
+        prevItems.map(item => 
+          item.service.id === serviceId 
+            ? { ...item, selectedItems }
+            : item
+        )
+      );
+    } catch (error) {
+      console.error('Error updating selected items:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update selected items. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.service.price, 0);
+    try {
+      return cartItems.reduce((total, item) => total + item.service.price, 0);
+    } catch (error) {
+      console.error('Error calculating total price:', error);
+      return 0;
+    }
   };
 
   const getTotalItems = () => {
-    return cartItems.length;
+    try {
+      return cartItems.length;
+    } catch (error) {
+      console.error('Error getting total items:', error);
+      return 0;
+    }
   };
 
   const handlePlaceOrder = async (orderDetails: OrderDetails) => {

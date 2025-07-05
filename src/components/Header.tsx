@@ -119,12 +119,22 @@ const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button
-                onClick={() => navigate("/auth")}
-                className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600"
-              >
-                Sign In
-              </Button>
+              <div className="flex items-center space-x-2">
+                <Button
+                  onClick={() => navigate("/signin")}
+                  variant="outline"
+                  size="sm"
+                >
+                  Sign In
+                </Button>
+                <Button
+                  onClick={() => navigate("/signup")}
+                  className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600"
+                  size="sm"
+                >
+                  Sign Up
+                </Button>
+              </div>
             )}
           </nav>
 
@@ -208,12 +218,21 @@ const Header = ({ cartItemsCount = 0, onCartClick }: HeaderProps) => {
               </button>
               
               {!user && (
-                <Button
-                  onClick={() => navigate("/auth")}
-                  className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 w-full mt-4"
-                >
-                  Sign In
-                </Button>
+                <div className="flex flex-col space-y-2 pt-4">
+                  <Button
+                    onClick={() => navigate("/signin")}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Sign In
+                  </Button>
+                  <Button
+                    onClick={() => navigate("/signup")}
+                    className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 w-full"
+                  >
+                    Sign Up
+                  </Button>
+                </div>
               )}
             </nav>
           </div>
