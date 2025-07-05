@@ -15,6 +15,17 @@ interface CartProps {
 }
 
 const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheckout, total }: CartProps) => {
+  console.log('Cart rendered with items:', items);
+
+  const handleRemoveService = (serviceId: number) => {
+    console.log('Removing service from cart UI:', serviceId);
+    try {
+      onUpdateQuantity(serviceId, 0);
+    } catch (error) {
+      console.error('Error in handleRemoveService:', error);
+    }
+  };
+
   if (items.length === 0) {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -76,7 +87,7 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => onUpdateQuantity(item.service.id, 0)}
+                        onClick={() => handleRemoveService(item.service.id)}
                         className="h-6 w-6 sm:h-8 sm:w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
                         title="Remove service"
                       >

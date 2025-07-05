@@ -22,7 +22,6 @@ export const useCartManagement = () => {
     const existingItem = cartItems.find(item => item.service.id === serviceId);
     
     if (existingItem) {
-      // Service already in cart, don't add duplicate
       toast({
         title: "Service Already Added",
         description: `${service.name} is already in your cart.`,
@@ -39,7 +38,7 @@ export const useCartManagement = () => {
         description: service.description,
         category: service.category
       },
-      quantity: 1, // Always 1 for services
+      quantity: 1,
       selectedItems: []
     };
     setCartItems(items => [...items, newItem]);
@@ -51,49 +50,73 @@ export const useCartManagement = () => {
   };
 
   const removeFromCart = (serviceId: number) => {
-    setCartItems(items => items.filter(item => item.service.id !== serviceId));
-    toast({
-      title: "Removed from Cart",
-      description: "Service has been removed from your cart.",
-    });
+    console.log('Removing service from cart:', serviceId);
+    try {
+      setCartItems(items => {
+        const filteredItems = items.filter(item => item.service.id !== serviceId);
+        console.log('Filtered items:', filteredItems);
+        return filteredItems;
+      });
+      
+      toast({
+        title: "Removed from Cart",
+        description: "Service has been removed from your cart.",
+      });
+    } catch (error) {
+      console.error('Error removing from cart:', error);
+      toast({
+        title: "Error",
+        description: "Failed to remove service from cart.",
+        variant: "destructive"
+      });
+    }
   };
 
   const updateQuantity = (serviceId: number, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(serviceId);
-      return;
+    console.log('Updating quantity:', serviceId, quantity);
+    try {
+      if (quantity <= 0) {
+        removeFromCart(serviceId);
+        return;
+      }
+      
+      setCartItems(items => 
+        items.map(item => 
+          item.service.id === serviceId 
+            ? { ...item, quantity: 1 }
+            : item
+        )
+      );
+    } catch (error) {
+      console.error('Error updating quantity:', error);
     }
-    
-    // For services, quantity should always be 1
-    setCartItems(items => 
-      items.map(item => 
-        item.service.id === serviceId 
-          ? { ...item, quantity: 1 }
-          : item
-      )
-    );
   };
 
   const updateSelectedItems = (serviceId: number, selectedItems: SelectedServiceItem[]) => {
     console.log('Updating selected items for service:', serviceId, 'items:', selectedItems);
-    setCartItems(items => 
-      items.map(item => 
-        item.service.id === serviceId 
-          ? { ...item, selectedItems }
-          : item
-      )
-    );
+    try {
+      setCartItems(items => 
+        items.map(item => 
+          item.service.id === serviceId 
+            ? { ...item, selectedItems }
+            : item
+        )
+      );
+    } catch (error) {
+      console.error('Error updating selected items:', error);
+    }
   };
 
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.service.price, 0); // Remove quantity multiplication
+    return cartItems.reduce((total, item) => total + item.service.price, 0);
   };
 
   const getTotalItems = () => {
-    return cartItems.length; // Count services, not quantities
+    return cartItems.length;
   };
 
   const handlePlaceOrder = async (orderDetails: OrderDetails) => {
+    console.log('Placing order...');
     try {
       const orderId = `ORDER-${Date.now()}`;
       
@@ -126,13 +149,24 @@ export const useCartManagement = () => {
         console.error('Notification error (non-blocking):', notificationError);
       }
 
-      // Clear cart and close modals
+      // Clear cart and close modals - THIS IS CRITICAL
+      console.log('Clearing cart and closing modals...');
       setCartItems([]);
       setShowCheckout(false);
       setShowCart(false);
       
+      toast({
+        title: "Order Placed Successfully!",
+        description: "Your order has been placed. Our team will contact you soon.",
+      });
+      
     } catch (error) {
       console.error('Error placing order:', error);
+      toast({
+        title: "Order Failed",
+        description: "There was an issue placing your order. Please try again.",
+        variant: "destructive"
+      });
       throw error;
     }
   };

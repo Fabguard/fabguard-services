@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { OrderDetails, CartItemWithItems, SelectedServiceItem } from "@/types/types";
-import { useOrderNotification } from "@/hooks/useOrderNotification";
 import CheckoutForm from "./checkout/CheckoutForm";
 import ServiceItemsSelection from "./checkout/ServiceItemsSelection";
 
@@ -31,7 +30,6 @@ const Checkout = ({ total, cartItems, onUpdateSelectedItems, onClose, onPlaceOrd
   const [isLoading, setIsLoading] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const { toast } = useToast();
-  const { sendOrderNotification } = useOrderNotification();
 
   const finalTotal = total - discount;
 
@@ -63,9 +61,7 @@ const Checkout = ({ total, cartItems, onUpdateSelectedItems, onClose, onPlaceOrd
     setIsLoading(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      console.log('Submitting order from checkout...');
       const orderDetails: OrderDetails = {
         ...formData,
         discount,
@@ -73,13 +69,10 @@ const Checkout = ({ total, cartItems, onUpdateSelectedItems, onClose, onPlaceOrd
         customerNote: formData.note
       };
       
-      // Call the parent's onPlaceOrder function which handles the notification
-      onPlaceOrder(orderDetails);
+      // Call the parent's onPlaceOrder function which handles everything including cart closure
+      await onPlaceOrder(orderDetails);
       
-      toast({
-        title: "Order Placed Successfully!",
-        description: "Our team will contact you soon to schedule the service. You'll only be charged for the actual services performed after inspection.",
-      });
+      console.log('Order submitted successfully');
       
     } catch (error) {
       console.error("Error placing order:", error);

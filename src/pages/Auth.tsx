@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -7,8 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 type SignInFormValues = {
   email: string;
@@ -25,55 +24,96 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const signInForm = useForm<SignInFormValues>();
   const signUpForm = useForm<SignUpFormValues>();
 
   // Redirect if already authenticated
   useEffect(() => {
+    console.log('Auth page - current user:', user);
     if (user) {
+      console.log('User is authenticated, redirecting to home...');
       navigate("/");
     }
   }, [user, navigate]);
 
   const onSignIn = async (data: SignInFormValues) => {
+    console.log('Attempting sign in...');
     setIsLoading(true);
-    const { error } = await signIn(data.email, data.password);
-    
-    if (error) {
+    try {
+      const { error } = await signIn(data.email, data.password);
+      
+      if (error) {
+        console.error('Sign in error:', error);
+        toast({
+          title: "Error signing in",
+          description: error.message || "Failed to sign in. Please try again.",
+          variant: "destructive",
+        });
+      } else {
+        console.log('Sign in successful');
+        toast({
+          title: "Success!",
+          description: "You have been signed in successfully.",
+        });
+        navigate("/");
+      }
+    } catch (err) {
+      console.error('Unexpected sign in error:', err);
       toast({
-        title: "Error signing in",
-        description: error.message,
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
-    } else {
-      toast({
-        title: "Success!",
-        description: "You have been signed in successfully.",
-      });
-      navigate("/");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const onSignUp = async (data: SignUpFormValues) => {
+    console.log('Attempting sign up...');
     setIsLoading(true);
-    const { error } = await signUp(data.email, data.password, data.fullName);
-    
-    if (error) {
+    try {
+      const { error } = await signUp(data.email, data.password, data.fullName);
+      
+      if (error) {
+        console.error('Sign up error:', error);
+        toast({
+          title: "Error signing up",
+          description: error.message || "Failed to create account. Please try again.",
+          variant: "destructive",
+        });
+      } else {
+        console.log('Sign up successful');
+        toast({
+          title: "Success!",
+          description: "Please check your email to confirm your account.",
+        });
+      }
+    } catch (err) {
+      console.error('Unexpected sign up error:', err);
       toast({
-        title: "Error signing up",
-        description: error.message,
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
-    } else {
-      toast({
-        title: "Success!",
-        description: "Please check your email to confirm your account.",
-      });
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
+
+  // Show loading state while checking authentication
+  if (user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Redirecting...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
