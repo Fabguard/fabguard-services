@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useServices } from "@/hooks/useServices";
@@ -202,6 +201,16 @@ export const useCartManagement = () => {
       toast({
         title: "Order Placed Successfully!",
         description: "Your order has been placed. Our team will contact you soon.",
+        action: (
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => window.open('https://g.page/r/CZZUXPjcrajXEBM/review', '_blank')}
+              className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
+            >
+              Share Feedback
+            </button>
+          </div>
+        ),
       });
       
     } catch (error) {
