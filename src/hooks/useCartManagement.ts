@@ -51,60 +51,47 @@ export const useCartManagement = () => {
 
   const removeFromCart = (serviceId: number) => {
     console.log('Removing service from cart:', serviceId);
-    try {
-      setCartItems(items => {
-        const filteredItems = items.filter(item => item.service.id !== serviceId);
-        console.log('Filtered items:', filteredItems);
-        return filteredItems;
-      });
-      
-      toast({
-        title: "Removed from Cart",
-        description: "Service has been removed from your cart.",
-      });
-    } catch (error) {
-      console.error('Error removing from cart:', error);
-      toast({
-        title: "Error",
-        description: "Failed to remove service from cart.",
-        variant: "destructive"
-      });
-    }
+    
+    // Use a callback function to ensure state is updated correctly
+    setCartItems(prevItems => {
+      const filteredItems = prevItems.filter(item => item.service.id !== serviceId);
+      console.log('Previous items:', prevItems.length, 'New items:', filteredItems.length);
+      return filteredItems;
+    });
+    
+    toast({
+      title: "Removed from Cart",
+      description: "Service has been removed from your cart.",
+    });
   };
 
   const updateQuantity = (serviceId: number, quantity: number) => {
     console.log('Updating quantity:', serviceId, quantity);
-    try {
-      if (quantity <= 0) {
-        removeFromCart(serviceId);
-        return;
-      }
-      
-      setCartItems(items => 
-        items.map(item => 
-          item.service.id === serviceId 
-            ? { ...item, quantity: 1 }
-            : item
-        )
-      );
-    } catch (error) {
-      console.error('Error updating quantity:', error);
+    
+    if (quantity <= 0) {
+      removeFromCart(serviceId);
+      return;
     }
+    
+    setCartItems(prevItems => 
+      prevItems.map(item => 
+        item.service.id === serviceId 
+          ? { ...item, quantity: 1 }
+          : item
+      )
+    );
   };
 
   const updateSelectedItems = (serviceId: number, selectedItems: SelectedServiceItem[]) => {
     console.log('Updating selected items for service:', serviceId, 'items:', selectedItems);
-    try {
-      setCartItems(items => 
-        items.map(item => 
-          item.service.id === serviceId 
-            ? { ...item, selectedItems }
-            : item
-        )
-      );
-    } catch (error) {
-      console.error('Error updating selected items:', error);
-    }
+    
+    setCartItems(prevItems => 
+      prevItems.map(item => 
+        item.service.id === serviceId 
+          ? { ...item, selectedItems }
+          : item
+      )
+    );
   };
 
   const getTotalPrice = () => {
@@ -116,18 +103,24 @@ export const useCartManagement = () => {
   };
 
   const handlePlaceOrder = async (orderDetails: OrderDetails) => {
-    console.log('Placing order...');
+    console.log('Placing order with details:', orderDetails);
+    console.log('Cart items:', cartItems);
+    
     try {
       const orderId = `ORDER-${Date.now()}`;
       
+      // Create the order
+      console.log('Creating order...');
       await createOrderMutation.mutateAsync({
         orderDetails,
         cartItems,
         orderId
       });
+      console.log('Order created successfully');
 
-      // Send WhatsApp notification
+      // Send WhatsApp notification (non-blocking)
       try {
+        console.log('Sending WhatsApp notification...');
         await sendOrderNotification({
           customerName: orderDetails.name,
           customerPhone: orderDetails.phone,
@@ -145,11 +138,13 @@ export const useCartManagement = () => {
           customerNote: orderDetails.customerNote,
           orderId
         });
+        console.log('WhatsApp notification sent successfully');
       } catch (notificationError) {
         console.error('Notification error (non-blocking):', notificationError);
+        // Don't throw error for notification failure
       }
 
-      // Clear cart and close modals - THIS IS CRITICAL
+      // Clear cart and close modals
       console.log('Clearing cart and closing modals...');
       setCartItems([]);
       setShowCheckout(false);

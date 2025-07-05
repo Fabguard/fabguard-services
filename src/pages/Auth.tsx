@@ -22,21 +22,48 @@ type SignUpFormValues = {
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, signUp, user } = useAuth();
+  const [isInitialized, setIsInitialized] = useState(false);
+  const { signIn, signUp, user, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const signInForm = useForm<SignInFormValues>();
   const signUpForm = useForm<SignUpFormValues>();
 
-  // Redirect if already authenticated
+  // Wait for auth to initialize before doing any redirects
   useEffect(() => {
-    console.log('Auth page - current user:', user);
-    if (user) {
-      console.log('User is authenticated, redirecting to home...');
-      navigate("/");
+    if (!loading) {
+      setIsInitialized(true);
+      if (user) {
+        console.log('User is authenticated, redirecting to home...');
+        navigate("/");
+      }
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate]);
+
+  // Don't render anything until auth is initialized
+  if (!isInitialized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If user is authenticated, show loading while redirecting
+  if (user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Redirecting...</p>
+        </div>
+      </div>
+    );
+  }
 
   const onSignIn = async (data: SignInFormValues) => {
     console.log('Attempting sign in...');
@@ -57,7 +84,7 @@ const Auth = () => {
           title: "Success!",
           description: "You have been signed in successfully.",
         });
-        navigate("/");
+        // Don't navigate here, let the useEffect handle it
       }
     } catch (err) {
       console.error('Unexpected sign in error:', err);
@@ -102,18 +129,6 @@ const Auth = () => {
       setIsLoading(false);
     }
   };
-
-  // Show loading state while checking authentication
-  if (user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p>Redirecting...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
