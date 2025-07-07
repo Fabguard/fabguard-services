@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useServices } from "@/hooks/useServices";
 import { useCreateOrder } from "@/hooks/useCreateOrder";
 import { useOrderNotification } from "@/hooks/useOrderNotification";
 import { CartItemWithItems, OrderDetails, SelectedServiceItem } from "@/types/types";
-import React from "react";
+import { ToastAction } from "@/components/ui/toast";
 
 export const useCartManagement = () => {
   const [cartItems, setCartItems] = useState<CartItemWithItems[]>([]);
@@ -203,17 +202,13 @@ export const useCartManagement = () => {
       toast({
         title: "Order Placed Successfully!",
         description: "Your order has been placed. Our team will contact you soon.",
-        action: React.createElement(
-          'div',
-          { className: 'flex flex-col gap-2' },
-          React.createElement(
-            'button',
-            {
-              onClick: () => window.open('https://g.page/r/CZZUXPjcrajXEBM/review', '_blank'),
-              className: 'bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700'
-            },
-            'Share Feedback'
-          )
+        action: (
+          <ToastAction 
+            altText="Share Feedback"
+            onClick={() => window.open('https://g.page/r/CZZUXPjcrajXEBM/review', '_blank')}
+          >
+            Share Feedback
+          </ToastAction>
         ),
       });
       
