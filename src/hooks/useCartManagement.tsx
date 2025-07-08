@@ -22,6 +22,11 @@ export const useCartManagement = () => {
       const service = services.find(s => s.id === serviceId);
       if (!service) {
         console.error('Service not found:', serviceId);
+        toast({
+          title: "Error",
+          description: "Service not found. Please try again.",
+          variant: "destructive"
+        });
         return;
       }
 
@@ -50,7 +55,7 @@ export const useCartManagement = () => {
       
       setCartItems(prevItems => {
         const newItems = [...prevItems, newItem];
-        console.log('Cart items after adding:', newItems);
+        console.log('Cart items after adding:', newItems.length);
         return newItems;
       });
       
@@ -70,17 +75,20 @@ export const useCartManagement = () => {
 
   const removeFromCart = (serviceId: number) => {
     console.log('Removing service from cart:', serviceId);
-    console.log('Current cart items:', cartItems);
+    console.log('Current cart items before removal:', cartItems.length);
     
     try {
       setCartItems(prevItems => {
-        const newItems = prevItems.filter(item => {
-          console.log('Checking item:', item.service.id, 'against serviceId:', serviceId);
-          return item.service.id !== serviceId;
+        const filteredItems = prevItems.filter(item => {
+          const shouldKeep = item.service.id !== serviceId;
+          console.log(`Item ${item.service.id} (${item.service.name}): ${shouldKeep ? 'keeping' : 'removing'}`);
+          return shouldKeep;
         });
-        console.log('Cart updated. Previous count:', prevItems.length, 'New count:', newItems.length);
-        console.log('New cart items:', newItems);
-        return newItems;
+        
+        console.log('Cart items after removal:', filteredItems.length);
+        console.log('Removed items:', prevItems.length - filteredItems.length);
+        
+        return filteredItems;
       });
       
       toast({

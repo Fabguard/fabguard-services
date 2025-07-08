@@ -16,21 +16,20 @@ interface CartProps {
 
 const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheckout, total }: CartProps) => {
   console.log('Cart component rendered with items:', items);
-  console.log('Cart props:', { items: items?.length, total });
+  console.log('Cart props - items count:', items?.length, 'total:', total);
 
   const handleRemoveService = (serviceId: number) => {
     console.log('Cart: Removing service with ID:', serviceId);
     try {
-      // Call the parent function to remove from cart
       onUpdateQuantity(serviceId, 0);
     } catch (error) {
       console.error('Error in handleRemoveService:', error);
     }
   };
 
-  // Safety check for items array
+  // Ensure items is always an array
   const safeItems = Array.isArray(items) ? items : [];
-  console.log('Safe items array:', safeItems);
+  console.log('Safe items array length:', safeItems.length);
 
   if (safeItems.length === 0) {
     console.log('Rendering empty cart state');
@@ -78,39 +77,50 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
             <div className="bg-gradient-to-r from-blue-50 to-teal-50 p-3 sm:p-4 rounded-lg border border-blue-200">
               <h3 className="text-base sm:text-lg font-semibold text-blue-800 mb-3">📋 Your Selected Services</h3>
               <div className="grid gap-2 sm:gap-3">
-                {safeItems.map(item => (
-                  <div key={item.service.id} className="flex items-center justify-between bg-white p-2 sm:p-3 rounded-lg shadow-sm">
-                    <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
-                      <img
-                        src={item.service.image}
-                        alt={item.service.name}
-                        className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded flex-shrink-0"
-                        onError={(e) => {
-                          console.log('Image load error for service:', item.service.name);
-                          (e.target as HTMLImageElement).src = '/placeholder.svg';
-                        }}
-                      />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-gray-800 text-sm sm:text-base truncate">{item.service.name}</h4>
-                        <p className="text-xs sm:text-sm text-gray-600">Visit Charges: ₹{item.service.price}</p>
+                {safeItems.map(item => {
+                  if (!item || !item.service) {
+                    console.warn('Invalid item found:', item);
+                    return null;
+                  }
+                  
+                  return (
+                    <div key={`cart-item-${item.service.id}`} className="flex items-center justify-between bg-white p-2 sm:p-3 rounded-lg shadow-sm">
+                      <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+                        <img
+                          src={item.service.image || '/placeholder.svg'}
+                          alt={item.service.name || 'Service'}
+                          className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded flex-shrink-0"
+                          onError={(e) => {
+                            console.log('Image load error for service:', item.service.name);
+                            (e.target as HTMLImageElement).src = '/placeholder.svg';
+                          }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-gray-800 text-sm sm:text-base truncate">
+                            {item.service.name || 'Unknown Service'}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-gray-600">
+                            Visit Charges: ₹{item.service.price || 0}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2 flex-shrink-0">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleRemoveService(item.service.id)}
+                          className="h-6 w-6 sm:h-8 sm:w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
+                          title="Remove service"
+                        >
+                          <X className="h-3 w-3 sm:h-4 sm:w-4" />
+                        </Button>
+                        <div className="ml-2 font-bold text-blue-600 text-sm sm:text-base">
+                          ₹{item.service.price || 0}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2 flex-shrink-0">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleRemoveService(item.service.id)}
-                        className="h-6 w-6 sm:h-8 sm:w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
-                        title="Remove service"
-                      >
-                        <X className="h-3 w-3 sm:h-4 sm:w-4" />
-                      </Button>
-                      <div className="ml-2 font-bold text-blue-600 text-sm sm:text-base">
-                        ₹{item.service.price}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
