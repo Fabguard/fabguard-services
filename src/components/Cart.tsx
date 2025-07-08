@@ -15,7 +15,8 @@ interface CartProps {
 }
 
 const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheckout, total }: CartProps) => {
-  console.log('Cart rendered with items:', items);
+  console.log('Cart component rendered with items:', items);
+  console.log('Cart props:', { items: items?.length, total });
 
   const handleRemoveService = (serviceId: number) => {
     console.log('Cart: Removing service with ID:', serviceId);
@@ -27,7 +28,12 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
     }
   };
 
-  if (!items || items.length === 0) {
+  // Safety check for items array
+  const safeItems = Array.isArray(items) ? items : [];
+  console.log('Safe items array:', safeItems);
+
+  if (safeItems.length === 0) {
+    console.log('Rendering empty cart state');
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <Card className="w-full max-w-md">
@@ -53,12 +59,13 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
     );
   }
 
+  console.log('Rendering cart with items:', safeItems.length);
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
       <Card className="w-full max-w-7xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col">
         <CardHeader className="flex flex-row items-center justify-between sticky top-0 bg-white z-10 p-3 sm:p-6 border-b flex-shrink-0">
           <CardTitle className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent text-base sm:text-lg md:text-xl">
-            Shopping Cart ({items.length} services)
+            Shopping Cart ({safeItems.length} services)
           </CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="h-4 w-4" />
@@ -71,7 +78,7 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
             <div className="bg-gradient-to-r from-blue-50 to-teal-50 p-3 sm:p-4 rounded-lg border border-blue-200">
               <h3 className="text-base sm:text-lg font-semibold text-blue-800 mb-3">📋 Your Selected Services</h3>
               <div className="grid gap-2 sm:gap-3">
-                {items.map(item => (
+                {safeItems.map(item => (
                   <div key={item.service.id} className="flex items-center justify-between bg-white p-2 sm:p-3 rounded-lg shadow-sm">
                     <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
                       <img
@@ -118,7 +125,7 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
                 If you don't select any items, our experts will discuss all requirements during their visit.
               </p>
               <ServiceItemsSelection 
-                cartItems={items} 
+                cartItems={safeItems} 
                 onItemsUpdate={onUpdateSelectedItems} 
               />
             </div>
@@ -139,7 +146,7 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
               <div className="flex justify-between items-center text-lg sm:text-xl font-bold p-3 sm:p-4 bg-gray-50 rounded-lg">
                 <span className="text-sm sm:text-base md:text-lg">Total Visit Charges:</span>
                 <span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent text-xl sm:text-2xl">
-                  ₹{total}
+                  ₹{total || 0}
                 </span>
               </div>
               

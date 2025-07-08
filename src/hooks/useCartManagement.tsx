@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useServices } from "@/hooks/useServices";
@@ -17,6 +18,7 @@ export const useCartManagement = () => {
 
   const addToCart = (serviceId: number) => {
     try {
+      console.log('Adding service to cart:', serviceId);
       const service = services.find(s => s.id === serviceId);
       if (!service) {
         console.error('Service not found:', serviceId);
@@ -46,7 +48,11 @@ export const useCartManagement = () => {
         selectedItems: []
       };
       
-      setCartItems(prevItems => [...prevItems, newItem]);
+      setCartItems(prevItems => {
+        const newItems = [...prevItems, newItem];
+        console.log('Cart items after adding:', newItems);
+        return newItems;
+      });
       
       toast({
         title: "Added to Cart",
@@ -64,11 +70,16 @@ export const useCartManagement = () => {
 
   const removeFromCart = (serviceId: number) => {
     console.log('Removing service from cart:', serviceId);
+    console.log('Current cart items:', cartItems);
     
     try {
       setCartItems(prevItems => {
-        const newItems = prevItems.filter(item => item.service.id !== serviceId);
+        const newItems = prevItems.filter(item => {
+          console.log('Checking item:', item.service.id, 'against serviceId:', serviceId);
+          return item.service.id !== serviceId;
+        });
         console.log('Cart updated. Previous count:', prevItems.length, 'New count:', newItems.length);
+        console.log('New cart items:', newItems);
         return newItems;
       });
       
@@ -135,7 +146,9 @@ export const useCartManagement = () => {
 
   const getTotalPrice = () => {
     try {
-      return cartItems.reduce((total, item) => total + item.service.price, 0);
+      const total = cartItems.reduce((total, item) => total + item.service.price, 0);
+      console.log('Total price calculated:', total, 'for items:', cartItems.length);
+      return total;
     } catch (error) {
       console.error('Error calculating total price:', error);
       return 0;
@@ -144,7 +157,9 @@ export const useCartManagement = () => {
 
   const getTotalItems = () => {
     try {
-      return cartItems.length;
+      const count = cartItems.length;
+      console.log('Total items count:', count);
+      return count;
     } catch (error) {
       console.error('Error getting total items:', error);
       return 0;
