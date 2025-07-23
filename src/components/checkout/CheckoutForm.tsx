@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import CouponSection from "./CouponSection";
 import TermsSection from "./TermsSection";
 import OrderSummary from "./OrderSummary";
+import { CartItemWithItems } from "@/types/types";
 
 interface FormData {
   name: string;
@@ -25,6 +26,7 @@ interface CheckoutFormProps {
   onAgreeToTermsChange: (agreed: boolean) => void;
   isLoading: boolean;
   total: number;
+  cartItems: CartItemWithItems[];
   onSubmit: (e: React.FormEvent) => void;
 }
 
@@ -37,6 +39,7 @@ const CheckoutForm = ({
   onAgreeToTermsChange,
   isLoading,
   total,
+  cartItems,
   onSubmit
 }: CheckoutFormProps) => {
   const finalTotal = total - discount;
@@ -121,7 +124,7 @@ const CheckoutForm = ({
         onAgreeToTermsChange={onAgreeToTermsChange}
       />
       
-      <OrderSummary total={total} discount={discount} />
+      <OrderSummary total={total} discount={discount} cartItems={cartItems} />
       
       <Button
         type="submit"

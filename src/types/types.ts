@@ -55,6 +55,7 @@ export interface OrderNotificationData {
     serviceName: string;
     quantity: number;
     price: number;
+    selectedItems?: string[];
   }>;
   totalAmount: number;
   finalAmount: number;

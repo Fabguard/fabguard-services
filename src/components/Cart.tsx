@@ -95,14 +95,26 @@ const Cart = ({ items, onUpdateQuantity, onUpdateSelectedItems, onClose, onCheck
                             (e.target as HTMLImageElement).src = '/placeholder.svg';
                           }}
                         />
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-gray-800 text-sm sm:text-base truncate">
-                            {item.service.name || 'Unknown Service'}
-                          </h4>
-                          <p className="text-xs sm:text-sm text-gray-600">
-                            Visit Charges: ₹{item.service.price || 0}
-                          </p>
-                        </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-gray-800 text-sm sm:text-base truncate">
+                          {item.service.name || 'Unknown Service'}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-gray-600">
+                          Visit Charges: ₹{item.service.price || 0}
+                        </p>
+                        {item.selectedItems && item.selectedItems.filter(si => si.selected).length > 0 && (
+                          <div className="mt-1">
+                            <p className="text-xs text-green-600 font-medium">Selected items:</p>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {item.selectedItems.filter(si => si.selected).map((selectedItem, idx) => (
+                                <span key={idx} className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                  {selectedItem.name}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                       </div>
                       <div className="flex items-center space-x-2 flex-shrink-0">
                         <Button

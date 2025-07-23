@@ -43,7 +43,10 @@ export const useOrderPlacement = (
           orderItems: cartItems.map(item => ({
             serviceName: item.service.name,
             quantity: item.quantity,
-            price: item.service.price
+            price: item.service.price,
+            selectedItems: item.selectedItems 
+              ? item.selectedItems.filter(si => si.selected).map(si => si.name)
+              : []
           })),
           totalAmount: getTotalPrice(),
           finalAmount: orderDetails.finalTotal,

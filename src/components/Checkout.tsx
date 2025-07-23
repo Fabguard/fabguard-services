@@ -159,6 +159,7 @@ const Checkout = ({ total, cartItems, onUpdateSelectedItems, onClose, onPlaceOrd
                 onAgreeToTermsChange={setAgreeToTerms}
                 isLoading={isLoading}
                 total={total}
+                cartItems={cartItems}
                 onSubmit={handleSubmit}
               />
             </div>

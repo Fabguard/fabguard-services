@@ -24,7 +24,13 @@ serve(async (req) => {
 
     // Format the WhatsApp message
     const orderItemsList = orderData.orderItems
-      .map((item: any) => `• ${item.serviceName} - ₹${item.price}`)
+      .map((item: any) => {
+        let itemText = `• ${item.serviceName} - ₹${item.price}`;
+        if (item.selectedItems && item.selectedItems.length > 0) {
+          itemText += `\n  Selected items: ${item.selectedItems.join(', ')}`;
+        }
+        return itemText;
+      })
       .join('\n');
 
     const message = `🔔 *NEW ORDER RECEIVED* 🔔

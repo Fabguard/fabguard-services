@@ -11,6 +11,7 @@ interface OrderNotificationInput {
     serviceName: string;
     quantity: number;
     price: number;
+    selectedItems?: string[];
   }>;
   totalAmount: number;
   finalAmount: number;
