@@ -9,6 +9,7 @@ import ContactForm from "@/components/ContactForm";
 import PartnerSection from "@/components/PartnerSection";
 import TeamSection from "@/components/TeamSection";
 import WhatsappFab from "@/components/WhatsappFab";
+import Footer from "@/components/Footer";
 import { Service, Membership as MembershipType } from "@/types/types";
 
 interface MainContentProps {
@@ -39,6 +40,7 @@ const MainContent = ({
       <Testimonials />
       <ContactForm />
       <PartnerSection />
+      <Footer />
 
       <WhatsappFab />
     </div>
