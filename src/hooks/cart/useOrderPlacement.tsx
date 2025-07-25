@@ -2,6 +2,7 @@
 import { useToast } from "@/hooks/use-toast";
 import { useCreateOrder } from "@/hooks/useCreateOrder";
 import { useOrderNotification } from "@/hooks/useOrderNotification";
+import { useOrderEmails } from "@/hooks/useOrderEmails";
 import { CartItemWithItems, OrderDetails } from "@/types/types";
 import { ToastAction } from "@/components/ui/toast";
 
@@ -15,6 +16,7 @@ export const useOrderPlacement = (
   const { toast } = useToast();
   const createOrderMutation = useCreateOrder();
   const { sendOrderNotification } = useOrderNotification();
+  const { sendOrderEmails } = useOrderEmails();
 
   const handlePlaceOrder = async (orderDetails: OrderDetails) => {
     console.log('Placing order with details:', orderDetails);
@@ -59,6 +61,35 @@ export const useOrderPlacement = (
       } catch (notificationError) {
         console.error('Notification error (non-blocking):', notificationError);
         // Don't throw error for notification failure
+      }
+
+      // Send email notifications (non-blocking)
+      try {
+        console.log('Sending email notifications...');
+        await sendOrderEmails({
+          customerName: orderDetails.name,
+          customerPhone: orderDetails.phone,
+          customerEmail: orderDetails.email,
+          customerAddress: orderDetails.address,
+          orderItems: cartItems.map(item => ({
+            serviceName: item.service.name,
+            quantity: item.quantity,
+            price: item.service.price,
+            selectedItems: item.selectedItems 
+              ? item.selectedItems.filter(si => si.selected).map(si => si.name)
+              : []
+          })),
+          totalAmount: getTotalPrice(),
+          finalAmount: orderDetails.finalTotal,
+          discount: orderDetails.discount,
+          couponCode: orderDetails.couponCode,
+          customerNote: orderDetails.customerNote,
+          orderId
+        });
+        console.log('Email notifications sent successfully');
+      } catch (emailError) {
+        console.error('Email error (non-blocking):', emailError);
+        // Don't throw error for email failure
       }
 
       // Clear cart and close modals
