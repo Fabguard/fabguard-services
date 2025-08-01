@@ -41,9 +41,6 @@ const Hero = () => {
                 </h3>
               </div>
 
-              <p className="text-xl text-gray-600 mt-6 max-w-lg">
-                Quality home services delivered to your doorstep. From cleaning to repairs, we've got you covered with professional expertise and reliability.
-              </p>
 
               {/* Hindi Content */}
               <div className="mt-6 p-4 bg-gradient-to-r from-orange-50 to-teal-50 rounded-lg border-l-4 border-orange-500">

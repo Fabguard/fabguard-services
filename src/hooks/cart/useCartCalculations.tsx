@@ -2,11 +2,13 @@
 import { CartItemWithItems } from "@/types/types";
 
 export const useCartCalculations = (cartItems: CartItemWithItems[]) => {
-  const getTotalPrice = () => {
+  const getTotalPrice = (discountPercentage: number = 0) => {
     try {
       const total = cartItems.reduce((total, item) => total + item.service.price, 0);
-      console.log('Total price calculated:', total, 'for items:', cartItems.length);
-      return total;
+      const discountAmount = (total * discountPercentage) / 100;
+      const finalTotal = total - discountAmount;
+      console.log('Total price calculated:', total, 'discount:', discountAmount, 'final:', finalTotal);
+      return finalTotal;
     } catch (error) {
       console.error('Error calculating total price:', error);
       return 0;
