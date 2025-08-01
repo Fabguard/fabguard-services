@@ -24,6 +24,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/signin" element={<Auth />} />
+              <Route path="/signup" element={<Auth />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
