@@ -26,7 +26,7 @@ function App() {
               <Route path="/auth" element={<Auth />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
