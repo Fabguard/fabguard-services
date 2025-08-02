@@ -246,6 +246,11 @@ const Dashboard = () => {
           <CardHeader>
             <CardTitle>Order History</CardTitle>
             <CardDescription>Track and manage your service orders</CardDescription>
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Important:</strong> The charges shown are visit charges. The actual service amount will be confirmed by the serviceman after inspection. If you agree to proceed with the service, you only pay the service cost (visit charges waived). If you decline the service, you pay only the fixed visit charges.
+              </p>
+            </div>
           </CardHeader>
           <CardContent>
             {orders.length === 0 ? (
