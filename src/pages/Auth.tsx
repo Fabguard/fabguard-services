@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 type SignInFormValues = {
   email: string;
@@ -26,6 +27,8 @@ const Auth = () => {
   const { signIn, signUp, user, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [resetEmail, setResetEmail] = useState("");
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const signInForm = useForm<SignInFormValues>();
   const signUpForm = useForm<SignUpFormValues>();
@@ -130,6 +133,49 @@ const Auth = () => {
     }
   };
 
+  const onResetPassword = async () => {
+    if (!resetEmail) {
+      toast({
+        title: "Error",
+        description: "Please enter your email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: `${window.location.origin}/auth`,
+      });
+      
+      if (error) {
+        console.error('Password reset error:', error);
+        toast({
+          title: "Error",
+          description: error.message || "Failed to send reset email. Please try again.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Success!",
+          description: "Password reset email sent. Please check your inbox.",
+        });
+        setShowResetPassword(false);
+        setResetEmail("");
+      }
+    } catch (err) {
+      console.error('Unexpected reset password error:', err);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <Card className="w-full max-w-md">
@@ -195,7 +241,49 @@ const Auth = () => {
                 <Button type="submit" disabled={isLoading} className="w-full">
                   {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
+                <div className="text-center mt-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowResetPassword(true)}
+                    className="text-sm text-blue-600 hover:text-blue-800 underline"
+                  >
+                    Forgot your password?
+                  </button>
+                </div>
               </form>
+              
+              {showResetPassword && (
+                <div className="mt-4 p-4 border rounded-lg bg-gray-50">
+                  <h3 className="font-medium mb-2">Reset Password</h3>
+                  <div className="space-y-3">
+                    <Input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={resetEmail}
+                      onChange={(e) => setResetEmail(e.target.value)}
+                    />
+                    <div className="flex gap-2">
+                      <Button 
+                        onClick={onResetPassword}
+                        disabled={isLoading}
+                        size="sm"
+                      >
+                        {isLoading ? "Sending..." : "Send Reset Email"}
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        onClick={() => {
+                          setShowResetPassword(false);
+                          setResetEmail("");
+                        }}
+                        size="sm"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </TabsContent>
             
             <TabsContent value="signup">

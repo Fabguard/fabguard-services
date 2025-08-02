@@ -58,7 +58,27 @@ const Dashboard = () => {
       if (!user) return;
 
       try {
-        // Fetch orders
+        // First get customer ID by email
+        const { data: customerData, error: customerError } = await supabase
+          .from('customers')
+          .select('id')
+          .eq('email', user.email)
+          .maybeSingle();
+
+        if (customerError) {
+          console.error('Error fetching customer:', customerError);
+          setOrdersLoading(false);
+          return;
+        }
+
+        // If no customer found, user hasn't placed any orders yet
+        if (!customerData) {
+          setOrders([]);
+          setOrdersLoading(false);
+          return;
+        }
+
+        // Fetch orders using customer_id
         const { data: ordersData, error: ordersError } = await supabase
           .from('orders')
           .select(`
@@ -75,7 +95,7 @@ const Dashboard = () => {
               )
             )
           `)
-          .eq('customer_id', user.id)
+          .eq('customer_id', customerData.id)
           .order('created_at', { ascending: false });
 
         if (ordersError) {
@@ -88,7 +108,7 @@ const Dashboard = () => {
         const { data: profileData, error: profileError } = await supabase
           .from('customers')
           .select('*')
-          .eq('id', user.id)
+          .eq('email', user.email)
           .maybeSingle();
 
         if (profileError) {
