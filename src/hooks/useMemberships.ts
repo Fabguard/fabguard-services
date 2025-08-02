@@ -9,7 +9,7 @@ export function useMemberships() {
       name: "Gold Membership",
       price: 2000,
       validity: "1-Year Validity",
-      discount: "10% Discount",
+      discount: "10% Discount on every order",
       services: ["Clothes Ironing Services", "Dry Cleaning Services"],
       features: ["Quick Service", "Exclusive Coupon Code"],
       color: "gold",
@@ -20,7 +20,7 @@ export function useMemberships() {
       name: "Platinum Membership",
       price: 2299, // Updated price
       validity: "1-Year Validity",
-      discount: "10% Discount",
+      discount: "10% Discount on every order",
       services: [
         "Clothes Ironing Services",
         "Dry Cleaning Services",
@@ -37,7 +37,7 @@ export function useMemberships() {
       name: "Diamond Membership",
       price: 2499, // Updated price
       validity: "1-Year Validity",
-      discount: "10% Discount",
+      discount: "10% Discount on every order",
       services: [
         "Clothes Ironing Services",
         "Dry Cleaning Services",

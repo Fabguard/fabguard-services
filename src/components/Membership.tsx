@@ -90,7 +90,7 @@ const Membership = ({
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <BadgeCheck className="h-5 w-5 text-green-500" />
-                    <span className="font-medium text-gray-800">{membership.discount} Discount</span>
+                    <span className="font-medium text-gray-800">{membership.discount}</span>
                   </div>
                   <div className="space-y-2">
                     <h4 className="font-medium text-gray-800">Applicable Services:</h4>
