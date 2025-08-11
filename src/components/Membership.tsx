@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeCheck, Star, Crown, Diamond } from "lucide-react";
 import type { Membership } from "@/types/types";
-import MembershipRegistrationModal from "./MembershipRegistrationModal";
+import MembershipRegistrationModal, { RegistrationFormValues } from "./MembershipRegistrationModal";
 import React, { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { useMembershipRegistration } from "@/hooks/useMembershipRegistration";
 
 interface MembershipProps {
   memberships: Membership[];
@@ -18,7 +18,7 @@ const Membership = ({
 }: MembershipProps) => {
   const [selectedMembership, setSelectedMembership] = useState<Membership | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { toast } = useToast();
+  const { registerMembership, isLoading } = useMembershipRegistration();
 
   const getIcon = (membershipName: string) => {
     switch (membershipName) {
@@ -38,13 +38,19 @@ const Membership = ({
     setIsModalOpen(true);
   };
 
-  const handleMembershipRegistration = (values: any) => {
-    toast({
-      title: "Registration Submitted!",
-      description: `Thank you for registering for ${selectedMembership?.name}. We'll contact you soon to complete the process.`,
-    });
-    setIsModalOpen(false);
-    setSelectedMembership(null);
+  const handleMembershipRegistration = async (values: RegistrationFormValues) => {
+    if (!selectedMembership) return;
+    
+    const success = await registerMembership(
+      values, 
+      selectedMembership.id, 
+      selectedMembership.name
+    );
+    
+    if (success) {
+      setIsModalOpen(false);
+      setSelectedMembership(null);
+    }
   };
 
   return (
