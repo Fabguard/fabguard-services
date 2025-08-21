@@ -10,7 +10,7 @@ import PartnerSection from "@/components/PartnerSection";
 import TeamSection from "@/components/TeamSection";
 import WhatsappFab from "@/components/WhatsappFab";
 import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
+
 import { Service, Membership as MembershipType } from "@/types/types";
 
 interface MainContentProps {
@@ -42,8 +42,6 @@ const MainContent = ({
       <ContactForm />
       <PartnerSection />
       <Footer />
-      <ScrollToTop />
-
       <WhatsappFab />
     </div>
   );

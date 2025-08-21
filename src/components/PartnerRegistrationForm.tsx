@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
+import { usePartnerRegistration } from "@/hooks/usePartnerRegistration";
 
 interface PartnerRegistrationFormProps {
   open: boolean;
@@ -20,27 +20,29 @@ const PartnerRegistrationForm: React.FC<PartnerRegistrationFormProps> = ({ open,
     experience: "",
     message: ""
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const { registerPartner, isLoading } = usePartnerRegistration();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate async submit; replace with actual backend call when Supabase is integrated
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      toast({
-        title: "Registration Submitted!",
-        description: "Thank you for registering as a Fabguard partner. Our team will reach out to you soon.",
-        duration: 5000,
+    
+    const success = await registerPartner(form);
+    
+    if (success) {
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        city: "",
+        skills: "",
+        experience: "",
+        message: ""
       });
       onClose();
-    }, 1200);
+    }
   };
 
   return (
@@ -75,7 +77,7 @@ const PartnerRegistrationForm: React.FC<PartnerRegistrationFormProps> = ({ open,
             <textarea className="w-full border rounded px-3 py-2 text-sm" name="message" placeholder="Additional Info (optional)" value={form.message} rows={2} onChange={handleChange}></textarea>
           </div>
           <DialogFooter>
-            <Button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Submit"}</Button>
+            <Button type="submit" disabled={isLoading}>{isLoading ? "Submitting..." : "Submit"}</Button>
             <DialogClose asChild>
               <Button variant="outline" type="button">Cancel</Button>
             </DialogClose>
