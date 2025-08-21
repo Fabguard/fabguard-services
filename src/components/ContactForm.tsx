@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { toast } from "@/hooks/use-toast";
+import { useContactForm } from "@/hooks/useContactForm";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -39,14 +39,14 @@ const whatsappNumber = "+917262927177"; // Updated WhatsApp number
 const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}`;
 
 const ContactForm = () => {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ContactFormFields>();
+  const { submitContactForm, isLoading } = useContactForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormFields>();
 
   const onSubmit = async (data: ContactFormFields) => {
-    toast({
-      title: "Thank you!",
-      description: "Your message has been sent. We'll get back to you soon.",
-    });
-    reset();
+    const success = await submitContactForm(data);
+    if (success) {
+      reset();
+    }
   };
 
   return (
@@ -105,8 +105,8 @@ const ContactForm = () => {
             />
             {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
           </div>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Sending..." : "Send Message"}
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Sending..." : "Send Message"}
           </Button>
         </form>
 
