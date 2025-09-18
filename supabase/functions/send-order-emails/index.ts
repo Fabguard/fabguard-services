@@ -234,7 +234,7 @@ serve(async (req) => {
 
     // Send customer email
     const customerEmailResult = await resend.emails.send({
-      from: 'Fabguard Services <onboarding@resend.dev>',
+      from: 'Fabguard Services <fabguard.in@gmail.com>',
       to: [orderData.customerEmail],
       subject: `Order Confirmation - ${orderData.orderId}`,
       html: createCustomerEmailHTML(orderData),
@@ -244,8 +244,8 @@ serve(async (req) => {
 
     // Send admin email
     const adminEmailResult = await resend.emails.send({
-      from: 'Fabguard Services <onboarding@resend.dev>',
-      to: ['admin@fabguard.com'], // Replace with actual admin email
+      from: 'Fabguard Services <fabguard.in@gmail.com>',
+      to: ['fabguard.in@gmail.com'], // Using verified admin email
       subject: `🔔 New Order Received - ${orderData.orderId}`,
       html: createAdminEmailHTML(orderData),
     });
