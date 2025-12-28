@@ -1,7 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { BadgeCheck, Star, Crown, Diamond } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { BadgeCheck, Star, Crown, Diamond, Check, ArrowRight } from "lucide-react";
 import type { Membership } from "@/types/types";
 import MembershipRegistrationModal, { RegistrationFormValues } from "./MembershipRegistrationModal";
 import React, { useState } from "react";
@@ -23,13 +23,26 @@ const Membership = ({
   const getIcon = (membershipName: string) => {
     switch (membershipName) {
       case "Gold Membership":
-        return <Star className="h-8 w-8 text-yellow-500" />;
+        return <Star className="h-8 w-8" />;
       case "Platinum Membership":
-        return <Crown className="h-8 w-8 text-gray-400" />;
+        return <Crown className="h-8 w-8" />;
       case "Diamond Membership":
-        return <Diamond className="h-8 w-8 text-blue-400" />;
+        return <Diamond className="h-8 w-8" />;
       default:
         return <BadgeCheck className="h-8 w-8" />;
+    }
+  };
+
+  const getGradientClass = (membershipName: string) => {
+    switch (membershipName) {
+      case "Gold Membership":
+        return "from-amber-500 to-yellow-600";
+      case "Platinum Membership":
+        return "from-slate-400 to-slate-600";
+      case "Diamond Membership":
+        return "from-blue-500 to-indigo-600";
+      default:
+        return "from-primary to-primary/80";
     }
   };
 
@@ -54,84 +67,114 @@ const Membership = ({
   };
 
   return (
-    <section id="membership" className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent mb-4">
-            Membership Plans
+    <section 
+      id="membership" 
+      className="section-padding bg-muted/30"
+      aria-labelledby="membership-heading"
+    >
+      <div className="container-golden">
+        {/* Section Header */}
+        <header className="text-center mb-16 max-w-3xl mx-auto">
+          <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm font-medium bg-accent/10 text-accent border-0">
+            Save Up To 30%
+          </Badge>
+          <h2 
+            id="membership-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+          >
+            <span className="gradient-text">Membership Plans</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Become a member and enjoy exclusive discounts &amp; benefits. Choose the perfect plan for your needs!
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Become a member and enjoy <strong className="text-foreground">exclusive discounts & benefits</strong>. 
+            Choose the perfect plan for your needs and save on every service!
           </p>
-        </div>
+        </header>
+
+        {/* Membership Cards - Golden Ratio Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {memberships.map((membership) => (
+          {memberships.map((membership, index) => (
             <Card
               key={membership.id}
-              className={`relative hover:shadow-xl transition-all duration-300 border-2 ${
-                membership.popular ? "border-teal-500 scale-105" : "border-gray-200"
+              className={`relative overflow-hidden border-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
+                membership.popular 
+                  ? "border-accent shadow-xl scale-105 z-10" 
+                  : "border-border/50 hover:border-primary/30"
               }`}
             >
+              {/* Popular Badge */}
               {membership.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-teal-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                <div className="absolute -top-px -right-px">
+                  <div className="bg-accent text-accent-foreground px-4 py-1 text-sm font-bold rounded-bl-lg">
                     Most Popular
-                  </span>
+                  </div>
                 </div>
               )}
 
-              <CardHeader className={`text-center ${membership.bgGradient} text-white rounded-t-lg`}>
+              {/* Card Header with Gradient */}
+              <CardHeader className={`text-center py-8 bg-gradient-to-br ${getGradientClass(membership.name)} text-white`}>
                 <div className="flex justify-center mb-4">
                   {getIcon(membership.name)}
                 </div>
                 <CardTitle className="text-2xl font-bold">{membership.name}</CardTitle>
-                <CardDescription className="text-white/90">
+                <CardDescription className="text-white/80">
                   1-Year Validity
                 </CardDescription>
-                <div className="text-4xl font-bold mt-4">
-                  ₹{membership.price}
+                <div className="mt-4">
+                  <span className="text-4xl font-bold">₹{membership.price}</span>
+                  <span className="text-white/80 ml-1">/year</span>
                 </div>
               </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <BadgeCheck className="h-5 w-5 text-green-500" />
-                    <span className="font-medium text-gray-800">{membership.discount}</span>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-gray-800">Applicable Services:</h4>
-                    <ul className="space-y-1">
-                      {membership.services.map((service, index) => (
-                        <li key={index} className="flex items-center space-x-2">
-                          <div className="h-2 w-2 bg-teal-500 rounded-full"></div>
-                          <span className="text-gray-600">{service}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-gray-800">Extra Benefits:</h4>
-                    <ul className="space-y-1">
-                      <li className="flex items-center space-x-2">
-                        <BadgeCheck className="h-4 w-4 text-green-500" />
-                        <span className="text-gray-600">No Visit Charges</span>
+
+              <CardContent className="p-6 space-y-6">
+                {/* Discount Highlight */}
+                <div className="flex items-center gap-3 p-3 bg-primary/5 rounded-lg border border-primary/10">
+                  <BadgeCheck className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span className="font-semibold text-foreground">{membership.discount}</span>
+                </div>
+
+                {/* Services Included */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3">Applicable Services:</h4>
+                  <ul className="space-y-2">
+                    {membership.services.map((service, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                        <span className="text-muted-foreground text-sm">{service}</span>
                       </li>
-                      {membership.features.map((feature, index) => (
-                        <li key={index} className="flex items-center space-x-2">
-                          <BadgeCheck className="h-4 w-4 text-green-500" />
-                          <span className="text-gray-600">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Extra Benefits */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3">Extra Benefits:</h4>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-accent flex-shrink-0" />
+                      <span className="text-muted-foreground text-sm font-medium">No Visit Charges</span>
+                    </li>
+                    {membership.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <Check className="h-4 w-4 text-accent flex-shrink-0" />
+                        <span className="text-muted-foreground text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </CardContent>
-              <CardFooter>
+
+              <CardFooter className="p-6 pt-0">
                 <Button
                   onClick={() => handleSelectMembership(membership)}
-                  className={`w-full ${membership.bgGradient} hover:opacity-90 text-white border-0`}
+                  className={`w-full py-6 font-semibold transition-all duration-300 group ${
+                    membership.popular 
+                      ? "bg-accent hover:bg-accent/90 text-accent-foreground" 
+                      : `bg-gradient-to-r ${getGradientClass(membership.name)} hover:opacity-90 text-white`
+                  }`}
+                  aria-label={`Select ${membership.name}`}
                 >
-                  Select {membership.name}
+                  Select {membership.name.split(' ')[0]}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </CardFooter>
             </Card>

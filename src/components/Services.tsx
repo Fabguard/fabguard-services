@@ -1,8 +1,7 @@
-
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ShoppingCart, ArrowRight } from "lucide-react";
 import { Service } from "@/types/types";
 
 interface ServicesProps {
@@ -11,7 +10,6 @@ interface ServicesProps {
 }
 
 const Services = ({ services, onAddToCart }: ServicesProps) => {
-  // Get unique categories and remove duplicates
   const categories = [...new Set(services.map(service => service.category))];
 
   const handleAddToCart = (service: Service) => {
@@ -19,67 +17,103 @@ const Services = ({ services, onAddToCart }: ServicesProps) => {
   };
 
   return (
-    <section id="services" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent mb-4">
-            Our Professional Services
+    <section 
+      id="services" 
+      className="section-padding bg-gradient-section"
+      aria-labelledby="services-heading"
+    >
+      <div className="container-golden">
+        {/* Section Header - SEO Optimized */}
+        <header className="text-center mb-16 max-w-3xl mx-auto">
+          <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm font-medium bg-primary/10 text-primary border-0">
+            Professional Home Services
+          </Badge>
+          <h2 
+            id="services-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+          >
+            <span className="gradient-text">Quality Services</span>
+            <br className="hidden sm:block" />
+            <span className="text-foreground">At Your Doorstep</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Quality home services at your doorstep. Prices shown are visit charges - actual service charges determined after inspection.
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Professional plumbing, electrical, carpentry, laundry and cleaning services. 
+            Prices shown are visit charges - actual service charges determined after inspection.
           </p>
-        </div>
+        </header>
 
-        {/* Golden Ratio Grid Layout - 30-60-90 rule */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {categories.map(category => (
-            <div key={category} className="space-y-6">
-              <h3 className="text-2xl font-semibold text-gray-800 text-center pb-4 border-b-2 border-blue-500">
-                {category}
-              </h3>
-              <div className="grid grid-cols-1 gap-6">
+        {/* Services Grid - Golden Ratio Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+          {categories.map((category, categoryIndex) => (
+            <article 
+              key={category} 
+              className="space-y-6"
+              style={{ animationDelay: `${categoryIndex * 0.1}s` }}
+            >
+              {/* Category Header */}
+              <div className="text-center pb-4 border-b-2 border-primary/30">
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                  {category}
+                </h3>
+              </div>
+              
+              {/* Service Cards */}
+              <div className="space-y-6">
                 {services
                   .filter(service => service.category === category)
-                  .map(service => (
-                    <Card key={service.id} className="hover:shadow-xl transition-all duration-300 border-0 shadow-lg group">
-                      <CardHeader className="p-0">
+                  .map((service, index) => (
+                    <Card 
+                      key={service.id} 
+                      className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card"
+                    >
+                      <CardHeader className="p-0 relative overflow-hidden">
                         <img
                           src={service.image}
-                          alt={service.name}
-                          className="w-full h-48 object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-300"
+                          alt={`${service.name} - Professional ${service.category} service in India`}
+                          className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
                         />
+                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </CardHeader>
-                      <CardContent className="p-6">
-                        <CardTitle className="text-xl mb-3 text-gray-800 group-hover:text-blue-600 transition-colors">
+                      
+                      <CardContent className="p-6 space-y-4">
+                        <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                           {service.name}
                         </CardTitle>
-                        <CardDescription className="text-gray-600 mb-4 line-clamp-3">
+                        
+                        <CardDescription className="text-muted-foreground line-clamp-2">
                           {service.description}
                         </CardDescription>
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
-                            ₹{service.price}
+                        
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <span className="text-2xl font-bold text-primary">₹{service.price}</span>
+                            <Badge variant="secondary" className="ml-2 text-xs bg-secondary text-secondary-foreground">
+                              Visit Charges
+                            </Badge>
                           </div>
-                          <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-800">
-                            Visit Charges
-                          </Badge>
                         </div>
-                        <p className="text-xs text-gray-500">
+                        
+                        <p className="text-xs text-muted-foreground">
                           Minimum consultation fee. Final charges after inspection.
                         </p>
                       </CardContent>
+                      
                       <CardFooter className="p-6 pt-0">
                         <Button
                           onClick={() => handleAddToCart(service)}
-                          className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105"
+                          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold py-3 transition-all duration-300 group/btn"
+                          aria-label={`Add ${service.name} to cart`}
                         >
+                          <ShoppingCart className="h-4 w-4 mr-2" />
                           Add to Cart
+                          <ArrowRight className="h-4 w-4 ml-2 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all" />
                         </Button>
                       </CardFooter>
                     </Card>
                   ))}
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
