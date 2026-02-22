@@ -233,12 +233,12 @@ serve(async (req) => {
     }
 
     // Send customer email - Using Resend's verified sender for reliable delivery
-    // To use custom domain, verify fabguard.in at https://resend.com/domains
+    // Domain fabguard.co.in must be verified at https://resend.com/domains
     const customerEmailResult = await resend.emails.send({
-      from: 'Fabguard Services <onboarding@resend.dev>',
-      replyTo: 'fabguard.in@gmail.com',
+      from: 'Fabguard Services <support@fabguard.co.in>',
+      replyTo: 'support@fabguard.co.in',
       to: [orderData.customerEmail],
-      subject: `Order Confirmation - ${orderData.orderId}`,
+      subject: `Order Confirmation & Invoice - ${orderData.orderId}`,
       html: createCustomerEmailHTML(orderData),
     });
 
@@ -246,9 +246,9 @@ serve(async (req) => {
 
     // Send admin email
     const adminEmailResult = await resend.emails.send({
-      from: 'Fabguard Services <onboarding@resend.dev>',
-      replyTo: 'fabguard.in@gmail.com',
-      to: ['fabguard.in@gmail.com'],
+      from: 'Fabguard Services <support@fabguard.co.in>',
+      replyTo: 'support@fabguard.co.in',
+      to: ['support@fabguard.co.in'],
       subject: `🔔 New Order Received - ${orderData.orderId}`,
       html: createAdminEmailHTML(orderData),
     });
