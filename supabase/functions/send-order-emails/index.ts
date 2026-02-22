@@ -248,7 +248,7 @@ serve(async (req) => {
     const adminEmailResult = await resend.emails.send({
       from: 'Fabguard Services <support@fabguard.co.in>',
       replyTo: 'support@fabguard.co.in',
-      to: ['support@fabguard.co.in'],
+      to: ['info@fabguard.co.in', 'fabguard.in@gmail.com', 'support@fabguard.co.in'],
       subject: `🔔 New Order Received - ${orderData.orderId}`,
       html: createAdminEmailHTML(orderData),
     });
