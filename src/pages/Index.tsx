@@ -7,7 +7,7 @@ import CartCheckoutModals from "@/components/CartCheckoutModals";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Index = () => {
-  const { data: services = [], isLoading } = useServices();
+  const { data: services = [], isLoading, error, refetch } = useServices();
   const { data: memberships = [] } = useMembershipsData();
   
   const {
@@ -26,6 +26,23 @@ const Index = () => {
 
   if (isLoading) {
     return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="text-center space-y-4">
+          <p className="text-foreground font-medium">Unable to load services</p>
+          <p className="text-muted-foreground text-sm">Please check your internet connection and try again.</p>
+          <button 
+            onClick={() => refetch()} 
+            className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
