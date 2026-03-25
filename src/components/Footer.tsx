@@ -63,20 +63,30 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Social Links */}
-        <div className="flex justify-center gap-4 py-6 border-t border-background/10">
-          {socialLinks.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Visit our ${item.name} page`}
-              className="p-2 rounded-full bg-background/10 hover:bg-background/20 transition-colors"
-            >
-              <item.icon className="h-5 w-5" />
-            </a>
-          ))}
+        {/* Social Links & Feedback */}
+        <div className="flex flex-col items-center gap-4 py-6 border-t border-background/10">
+          <div className="flex gap-4">
+            {socialLinks.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit our ${item.name} page`}
+                className="p-2 rounded-full bg-background/10 hover:bg-background/20 transition-colors"
+              >
+                <item.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+          <a
+            href="https://g.page/r/CZZUXPjcrajXEAE/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:opacity-90 transition-opacity"
+          >
+            ⭐ Share Feedback
+          </a>
         </div>
 
         {/* Copyright */}
