@@ -1,0 +1,15 @@
+# FabGuard
+
+> Professional home services across India — plumbing, electrical, carpentry, laundry, cleaning, and AC. Same-day visits, verified experts, cash on delivery.
+
+FabGuard is a doorstep home-services brand operating pan-India. Customers browse services, add them to cart, and place cash-on-delivery orders. A membership program offers recurring discounts.
+
+## Pages
+- [Home](/): Service catalog, membership plans, testimonials, contact.
+- [Orders](/orders): Customer order history (authenticated).
+- [Terms and Conditions](/terms-and-conditions): Legal terms.
+
+## Contact
+- Email: support@fabguard.co.in, info@fabguard.co.in
+- Phone: +91 7262927177
+- Review: https://g.page/r/CZZUXPjcrajXEAE/review
