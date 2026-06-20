@@ -78,7 +78,7 @@ ${catalog}`,
     const result = streamText({
       model,
       system: `${SYSTEM_PROMPT}\n\nCurrent service catalog:\n${catalog}`,
-      messages: convertToModelMessages(messages),
+      messages: await convertToModelMessages(messages),
     });
 
     return result.toUIMessageStreamResponse({ headers: corsHeaders });
