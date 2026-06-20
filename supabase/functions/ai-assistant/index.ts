@@ -74,11 +74,20 @@ ${catalog}`,
       });
     }
 
-    const messages = (body.messages ?? []) as UIMessage[];
+    const rawMessages = Array.isArray(body.messages) ? body.messages : [];
+    const modelMessages = rawMessages
+      .map((m: any) => {
+        const text = Array.isArray(m?.parts)
+          ? m.parts.filter((p: any) => p?.type === "text").map((p: any) => p.text).join("")
+          : typeof m?.content === "string" ? m.content : "";
+        return { role: m?.role === "assistant" ? "assistant" : "user", content: text };
+      })
+      .filter((m: any) => m.content);
+
     const result = streamText({
       model,
       system: `${SYSTEM_PROMPT}\n\nCurrent service catalog:\n${catalog}`,
-      messages: convertToModelMessages(messages),
+      messages: modelMessages,
     });
 
     return result.toUIMessageStreamResponse({ headers: corsHeaders });
