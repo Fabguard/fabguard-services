@@ -48,6 +48,7 @@ const Index = () => {
 
   return (
     <>
+      <SEO includeFaq path="/" />
       <MainContent
         services={services}
         memberships={memberships}
