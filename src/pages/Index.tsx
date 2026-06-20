@@ -5,6 +5,7 @@ import { useCartManagement } from "@/hooks/useCartManagement";
 import MainContent from "@/components/MainContent";
 import CartCheckoutModals from "@/components/CartCheckoutModals";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   const { data: services = [], isLoading, error, refetch } = useServices();
